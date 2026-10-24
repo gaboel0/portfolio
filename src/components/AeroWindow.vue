@@ -209,6 +209,22 @@ button.cap:focus-visible {
   padding: var(--space-5);
 }
 
+/* Touch: the real caption buttons grow to a finger-sized target. */
+@media (pointer: coarse) {
+  .window:has(button.cap) .titlebar {
+    min-height: 44px;
+  }
+
+  .controls button.cap {
+    width: 48px;
+    height: 40px;
+  }
+
+  .controls button.cap--close {
+    width: 64px;
+  }
+}
+
 .window--active {
   box-shadow:
     inset 0 0 0 1px var(--glass-hi),

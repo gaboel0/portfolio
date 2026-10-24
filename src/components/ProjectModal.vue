@@ -395,8 +395,36 @@ iframe {
 }
 
 @media (max-width: 640px) {
+  /* On a phone the window fills the screen: every pixel goes to the project. */
+  .project-dialog,
+  .project-dialog.is-max {
+    width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+  }
+
+  .project-dialog :deep(.window) {
+    border-radius: 0;
+    padding: 0 var(--space-1) var(--space-1);
+  }
+
   .address {
     flex-wrap: wrap;
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .tabs {
+    flex: 1 1 100%;
+  }
+
+  .tab {
+    flex: 1;
+    padding-inline: var(--space-2);
+  }
+
+  .address .btn {
+    flex: 1 1 100%;
+    justify-content: center;
   }
 }
 

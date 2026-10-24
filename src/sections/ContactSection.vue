@@ -103,10 +103,11 @@ const [user, domain] = person.email.split('@')
 
 .field {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-1) var(--space-3);
   min-height: 44px;
-  padding: 4px 10px;
+  padding: var(--space-1) var(--space-3);
 }
 
 .field + .field {
@@ -120,13 +121,23 @@ const [user, domain] = person.email.split('@')
 }
 
 .field dd {
-  flex: 1;
+  flex: 1 1 12rem;
   min-width: 0;
 }
 
 .mail-link {
-  font-size: clamp(0.78rem, 3.7vw, 1.2rem);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  font-size: clamp(0.9rem, 4.2vw, 1.2rem);
   font-weight: 600;
+}
+
+/* The two halves never split mid-word: when the row is short, the domain drops whole. */
+.mail-link .u,
+.mail-link .d {
   white-space: nowrap;
 }
 

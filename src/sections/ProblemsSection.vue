@@ -100,6 +100,12 @@ const repoUrl = (repo: string) => `${person.github}/${repo}`
   transform: translate(2px, -2px);
 }
 
+@media (pointer: coarse) {
+  .proof--link {
+    min-height: 44px;
+  }
+}
+
 @media (min-width: 900px) {
   .item {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 2fr) 130px;

@@ -229,6 +229,19 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 }
 
 
+@media (max-width: 480px) {
+  .assistant {
+    right: var(--space-3);
+    max-width: calc(100vw - var(--space-5));
+  }
+
+  .clip {
+    width: 72px;
+    height: auto;
+    margin-right: var(--space-2);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .clip,
   .eyes,

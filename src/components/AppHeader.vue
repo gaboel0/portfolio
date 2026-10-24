@@ -242,6 +242,32 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 }
 
 
+/* Touch: every control in the bar is a full 44px target. */
+@media (pointer: coarse) {
+  .task {
+    height: 100%;
+    min-width: 44px;
+    border-radius: 0;
+  }
+
+  .tray-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 0;
+  }
+
+  .peek {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* The orb already returns to the top; the show-desktop sliver is only a desktop idiom. */
+  .peek {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .task span {
     display: none;

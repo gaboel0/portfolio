@@ -149,8 +149,11 @@ const loading = computed(() => status.value !== 'ready')
 }
 
 .select {
+  min-width: 0;
+  width: 100%;
   display: grid;
   gap: 6px;
+  min-width: 0;
 }
 
 .select .eyebrow {
@@ -188,7 +191,7 @@ select:hover {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-2) var(--space-5);
-  padding: var(--space-3) 0;
+  padding: var(--space-1) var(--space-3) var(--space-3);
   border-bottom: 1px solid var(--line-strong);
 }
 
@@ -214,6 +217,7 @@ select:hover {
 }
 
 .repo-link {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -269,10 +273,18 @@ select:hover {
 }
 
 .cell-lang,
+.cell-date {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+}
+
 .label-m {
   min-width: 96px;
   color: var(--ink-3);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .lang,
@@ -314,13 +326,13 @@ select:hover {
 
 @media (min-width: 720px) {
   .controls {
-    grid-template-columns: minmax(220px, 1.4fr) 1fr 1fr;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
 @media (min-width: 900px) {
   .controls {
-    grid-template-columns: minmax(240px, 1.6fr) 1fr 1fr;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .row {
