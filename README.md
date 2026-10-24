@@ -19,7 +19,7 @@ npm run snapshot   # atualiza o snapshot offline a partir da API do GitHub
 src/
 ├── components/   # AppHeader, ProjectCard, ProjectCover, BrandIcon, SearchField…
 ├── sections/     # HeroSection, FeaturedProjects, RepositoryExplorer, AboutSection,
-│                 # SkillsSection, ExperienceTimeline, EducationSection, ContactSection
+│                 # ProblemsSection, ExperienceTimeline, EducationSection, ContactSection
 ├── three/        # chidoriScene.ts (cena do hero) e coverStage.ts (emblemas 3D das capas,
 │                 # um único canvas WebGL para todos os cards) — carregados sob demanda
 ├── services/     # github.ts — fetch, cache, tratamento de erros e limite de requisições

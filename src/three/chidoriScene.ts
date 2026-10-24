@@ -20,6 +20,7 @@ import {
   Sprite,
   SpriteMaterial,
   Vector2,
+  Vector3,
   WebGLRenderer,
 } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
@@ -38,6 +39,8 @@ export interface ChidoriScene {
   setPaused(paused: boolean): void
   setTheme(theme: SceneTheme): void
   burst(): void
+  /** True when a viewport point lies on the eclipse disc. */
+  hitMoon(clientX: number, clientY: number): boolean
   dispose(): void
 }
 
@@ -68,7 +71,7 @@ const PALETTES = {
     bloom: true,
   },
   light: {
-    clear: '#eeedf5',
+    clear: '#dde1f8',
     // A pale "dawn moon" so the dark headline stays readable where they overlap.
     disc: '#dcd8f0',
     rim: '#5a48e0',
@@ -404,6 +407,17 @@ export function createChidoriScene(canvas: HTMLCanvasElement, options: Options):
       applyPalette()
       // Draw right away so a view-transition snapshot already shows the new sky.
       render()
+    },
+    hitMoon(clientX, clientY) {
+      camera.updateMatrixWorld()
+      const rect = canvas.getBoundingClientRect()
+      const toScreen = (v: Vector3) => {
+        const p = v.clone().project(camera)
+        return { x: rect.left + ((p.x + 1) / 2) * rect.width, y: rect.top + ((1 - p.y) / 2) * rect.height }
+      }
+      const centre = toScreen(eclipse.position)
+      const edge = toScreen(eclipse.position.clone().add(new Vector3(RADIUS * eclipse.scale.x, 0, 0)))
+      return Math.hypot(clientX - centre.x, clientY - centre.y) <= Math.abs(edge.x - centre.x) * 1.1
     },
     burst() {
       for (const bolt of bolts) spark(bolt, true)

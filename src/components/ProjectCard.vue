@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ArrowUpRight, ExternalLink, Star } from 'lucide-vue-next'
+import { ArrowUpRight, ExternalLink, Folder, Star } from 'lucide-vue-next'
+import AeroWindow from './AeroWindow.vue'
 import ProjectCover from './ProjectCover.vue'
 import type { Project } from '@/types/portfolio'
 import { formatRelative } from '@/utils/format'
@@ -13,11 +14,17 @@ const props = withDefaults(
 
 const repo = computed(() => props.project.repo)
 const title = computed(() => repo.value.name)
-const highlights = computed(() => (props.lead || props.split ? props.project.curation?.highlights ?? [] : []))
 </script>
 
 <template>
-  <article class="project hud" :class="[`project--${variant}`, { 'project--lead': lead, 'project--split': split }]">
+  <AeroWindow
+    as="article"
+    flush
+    class="project"
+    :class="[`project--${variant}`, { 'project--lead': lead, 'project--split': split }]"
+    :title="repo.name"
+  >
+    <template #icon><Folder /></template>
     <ProjectCover
       v-if="variant === 'feature'"
       class="project__cover"
@@ -26,13 +33,11 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
       :stack="project.tags"
       :emblem="project.curation?.emblem"
       :index="index"
-:size="lead || split ? 'l' : 'm'"
     />
 
     <div class="project__body">
       <div class="project__meta mono">
-        <span v-if="variant === 'feature'" class="badge">Destaque</span>
-        <span v-else class="lang"><i :style="{ background: languageColor(repo.language) }" />{{ repo.language ?? 'Sem linguagem' }}</span>
+        <span v-if="variant !== 'feature'" class="lang"><i :style="{ background: languageColor(repo.language) }" />{{ repo.language ?? 'Sem linguagem' }}</span>
         <span v-if="project.curation?.context" class="context">{{ project.curation.context }}</span>
       </div>
 
@@ -46,14 +51,9 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
 
       <p v-if="project.description" class="project__desc">{{ project.description }}</p>
       <p v-else class="project__desc project__desc--empty">Repositório sem descrição pública.</p>
-      <p v-if="project.descriptionSource === 'readme'" class="project__source mono">Resumo do README</p>
-
-      <ul v-if="highlights.length" class="project__highlights" role="list">
-        <li v-for="item in highlights" :key="item">{{ item }}</li>
-      </ul>
 
       <ul class="project__tags" role="list" aria-label="Tecnologias">
-        <li v-for="tag in project.tags.slice(0, variant === 'feature' ? 6 : 4)" :key="tag" class="chip">{{ tag }}</li>
+        <li v-for="tag in project.tags.slice(0, 3)" :key="tag" class="chip">{{ tag }}</li>
       </ul>
 
       <footer class="project__footer mono">
@@ -75,29 +75,30 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
         </a>
       </footer>
     </div>
-  </article>
+  </AeroWindow>
 </template>
 
 <style scoped>
 .project {
-  position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--bg-elev);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-s);
+}
+
+.project :deep(.client) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   overflow: hidden;
-  transition:
-    border-color var(--dur) ease,
-    transform var(--dur) var(--ease-out),
-    box-shadow var(--dur) ease;
 }
 
 .project:hover,
 .project:focus-within {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow), 0 0 40px -18px var(--accent);
   transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 1px var(--glass-hi),
+    0 0 0 1px var(--accent),
+    0 0 26px -6px var(--accent),
+    var(--win-shadow);
 }
 
 .project:hover :deep(.block),
@@ -120,15 +121,6 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
   gap: var(--space-3);
   font-size: 0.72rem;
   color: var(--ink-3);
-}
-
-.badge {
-  padding: 0.15em 0.55em;
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  border-radius: var(--radius-s);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
 .lang {
@@ -160,7 +152,7 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
 
 .project--lead .project__title,
 .project--split .project__title {
-  font-size: var(--step-3);
+  font-size: var(--step-2);
 }
 
 /* The title link covers the whole card; secondary links sit above it. */
@@ -199,39 +191,15 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
 .project__desc {
   color: var(--ink-2);
   max-width: 62ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project__desc--empty {
   color: var(--ink-3);
   font-style: italic;
-}
-
-.project__source {
-  margin-top: calc(var(--space-2) * -1);
-  font-size: 0.68rem;
-  color: var(--ink-3);
-}
-
-.project__highlights {
-  display: grid;
-  gap: 6px;
-  padding-top: var(--space-2);
-  font-size: 0.92rem;
-  color: var(--ink-2);
-}
-
-.project__highlights li {
-  display: flex;
-  gap: 10px;
-}
-
-.project__highlights li::before {
-  content: '';
-  flex: none;
-  width: 10px;
-  height: 1px;
-  margin-top: 0.8em;
-  background: var(--accent);
 }
 
 .project__tags {
@@ -270,33 +238,5 @@ const highlights = computed(() => (props.lead || props.split ? props.project.cur
   z-index: 2;
   margin-left: auto;
   color: var(--accent-ink);
-}
-
-@media (min-width: 1024px) {
-  .project--lead .project__cover {
-    flex: 1;
-    aspect-ratio: auto;
-    min-height: 340px;
-  }
-
-  .project--lead .project__body {
-    flex: none;
-    padding: var(--space-6);
-  }
-
-  .project--split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-  }
-
-  .project--split .project__cover {
-    order: 2;
-    aspect-ratio: auto;
-    min-height: 100%;
-  }
-
-  .project--split .project__body {
-    padding: var(--space-6);
-  }
 }
 </style>

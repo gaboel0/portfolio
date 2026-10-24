@@ -70,7 +70,16 @@ onBeforeUnmount(() => {
   scene?.dispose()
 })
 
-defineExpose({ burst: () => scene?.burst() })
+/** Whether a click landed on the moon: the 3D disc, or the CSS one when WebGL is unavailable. */
+function isMoon(e: MouseEvent) {
+  if (scene && !failed.value) return scene.hitMoon(e.clientX, e.clientY)
+  const moon = document.querySelector<HTMLElement>('.stage .moon')
+  if (!moon) return false
+  const r = moon.getBoundingClientRect()
+  return Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2)) <= r.width / 2
+}
+
+defineExpose({ burst: () => scene?.burst(), isMoon })
 </script>
 
 <template>

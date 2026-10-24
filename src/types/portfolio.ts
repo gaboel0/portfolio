@@ -45,18 +45,15 @@ export interface Role {
   current: boolean
   summary: string
   responsibilities: string[]
-  stack: string[]
 }
 
-export interface SkillItem {
-  name: string
-  note: string
-  icon: string
-}
-
-export interface SkillGroup {
-  id: string
+/** A situation I solve, told from the resume and the public projects. */
+export interface Problem {
   title: string
-  description: string
-  items: SkillItem[]
+  /** The situation that needs solving. */
+  problem: string
+  /** What I do about it. */
+  solution: string
+  /** Where this is true: the job, or a public repository. */
+  proof: { label: string; repo?: string }
 }

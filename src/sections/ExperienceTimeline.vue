@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Briefcase } from 'lucide-vue-next'
+import AeroWindow from '@/components/AeroWindow.vue'
 import SectionHeading from '@/components/SectionHeading.vue'
 import { experience } from '@/data/profile'
 import { formatDuration, formatMonth } from '@/utils/format'
@@ -7,7 +9,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
 <template>
   <section id="experiencia" class="section" aria-labelledby="experiencia-title">
     <div class="container">
-      <SectionHeading id="experiencia-title" index="05" label="Experiência">
+      <SectionHeading id="experiencia-title">
         Trajetória <em>profissional</em>
       </SectionHeading>
 
@@ -26,7 +28,9 @@ import { formatDuration, formatMonth } from '@/utils/format'
 
           <span class="node" aria-hidden="true" />
 
-          <div class="card">
+          <AeroWindow as="div" class="card" :title="`${role.company} — ${role.title}`" :active="role.current">
+            <template #icon><Briefcase /></template>
+            <div class="card__body">
             <header>
               <h3>{{ role.title }}</h3>
               <p class="company">{{ role.company }}</p>
@@ -35,10 +39,8 @@ import { formatDuration, formatMonth } from '@/utils/format'
             <ul role="list" class="duties">
               <li v-for="item in role.responsibilities" :key="item">{{ item }}</li>
             </ul>
-            <ul role="list" class="stack" aria-label="Tecnologias">
-              <li v-for="tech in role.stack" :key="tech" class="chip">{{ tech }}</li>
-            </ul>
-          </div>
+            </div>
+          </AeroWindow>
         </li>
       </ol>
     </div>
@@ -65,6 +67,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
 .role {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   padding-left: var(--space-6);
 }
@@ -113,9 +116,9 @@ import { formatDuration, formatMonth } from '@/utils/format'
   border-radius: var(--radius-s);
 }
 
-.card {
+.card__body {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .card h3 {
@@ -165,28 +168,6 @@ import { formatDuration, formatMonth } from '@/utils/format'
   background: var(--accent);
 }
 
-.stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.role--current .card {
-  padding: var(--space-5);
-  margin-left: calc(var(--space-5) * -1);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-m);
-  background: var(--bg-elev);
-  box-shadow: var(--shadow);
-}
-
-@media (max-width: 559px) {
-  .role--current .card {
-    margin-left: 0;
-    padding: var(--space-4);
-  }
-}
-
 @media (min-width: 900px) {
   .timeline::before {
     left: calc(220px + var(--space-8) / 2);
@@ -209,16 +190,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
     left: calc(220px + var(--space-8) / 2 - 5px);
   }
 
-  .card {
-    padding-left: var(--space-2);
-  }
-
-  .role--current .card {
-    padding: var(--space-6);
-    margin-left: 0;
-  }
-
-  .role--current .duties {
+    .role--current .duties {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--space-6);
   }

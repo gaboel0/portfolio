@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { GraduationCap, Languages } from 'lucide-vue-next'
+import AeroWindow from '@/components/AeroWindow.vue'
 import { education, languages } from '@/data/profile'
 import { formatMonth } from '@/utils/format'
 </script>
@@ -8,13 +9,11 @@ import { formatMonth } from '@/utils/format'
   <section id="formacao" class="section" aria-labelledby="formacao-title">
     <div class="container layout">
       <header class="intro">
-        <p class="meta mono"><i aria-hidden="true" />Formação e idiomas <span class="idx">06</span></p>
         <h2 id="formacao-title">Base <em>acadêmica</em></h2>
       </header>
 
-      <article class="block hud" v-reveal aria-labelledby="edu-course">
-        <GraduationCap class="icon" aria-hidden="true" />
-        <p class="eyebrow">Graduação</p>
+      <AeroWindow as="article" class="block" v-reveal title="Graduação" aria-labelledby="edu-course">
+        <template #icon><GraduationCap /></template>
         <h3 id="edu-course">{{ education.course }}</h3>
         <p class="inst">{{ education.institution }}</p>
         <ul role="list" class="periods mono">
@@ -22,11 +21,18 @@ import { formatMonth } from '@/utils/format'
             <time :datetime="p.start">{{ formatMonth(p.start) }}</time> — <time :datetime="p.end">{{ formatMonth(p.end) }}</time>
           </li>
         </ul>
-      </article>
+      </AeroWindow>
 
-      <article v-for="lang in languages" :key="lang.name" v-reveal="80" class="block hud" :aria-labelledby="`lang-${lang.name}`">
-        <Languages class="icon" aria-hidden="true" />
-        <p class="eyebrow">Idioma</p>
+      <AeroWindow
+        v-for="lang in languages"
+        :key="lang.name"
+        as="article"
+        v-reveal="80"
+        class="block"
+        title="Idioma"
+        :aria-labelledby="`lang-${lang.name}`"
+      >
+        <template #icon><Languages /></template>
         <h3 :id="`lang-${lang.name}`">{{ lang.name }}</h3>
         <dl class="levels">
           <div v-for="l in lang.levels" :key="l.skill">
@@ -34,7 +40,7 @@ import { formatMonth } from '@/utils/format'
             <dd class="mono">{{ l.level }}</dd>
           </div>
         </dl>
-      </article>
+      </AeroWindow>
     </div>
   </section>
 </template>
@@ -45,70 +51,20 @@ import { formatMonth } from '@/utils/format'
   gap: var(--space-5);
 }
 
-.meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  font-size: 0.64rem;
-  text-transform: uppercase;
-  color: var(--ink-2);
-}
-
-.meta i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
-}
-
-.meta .idx {
-  color: var(--ink-3);
-}
-
 .intro h2 {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  margin-top: var(--space-3);
-  font-size: clamp(1.7rem, 7vw, 3rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-}
-
-.block {
-  position: relative;
-  display: grid;
-  align-content: start;
-  gap: 6px;
-  padding: var(--space-5);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-s);
-  background: var(--bg-elev);
-}
-
-.icon {
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
-  width: 20px;
-  height: 20px;
-  color: var(--ink-3);
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  font-weight: 300;
+  text-shadow: var(--title-glow);
 }
 
 .block h3 {
   font-size: var(--step-1);
-  padding-right: 32px;
 }
 
 .inst {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
   color: var(--accent-ink);
+  font-size: 0.9rem;
 }
 
 .periods {

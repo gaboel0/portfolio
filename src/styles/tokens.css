@@ -1,16 +1,16 @@
 :root {
   /* Typography */
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Syne', 'Manrope', ui-sans-serif, sans-serif;
-  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
-  --font-jp: 'Shippori Mincho', 'Yu Mincho', serif;
+  /* Windows 7 type: Segoe UI where it exists, Open Sans (its closest web cousin) elsewhere. */
+  --font-sans: 'Segoe UI', 'Open Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Segoe UI', 'Open Sans', system-ui, sans-serif;
+  --font-mono: Consolas, 'Cascadia Mono', ui-monospace, monospace;
 
   --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
   --step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
-  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
-  --step-2: clamp(1.45rem, 1.3rem + 0.75vw, 1.9rem);
-  --step-3: clamp(1.9rem, 1.6rem + 1.6vw, 3rem);
-  --step-4: clamp(2.6rem, 2rem + 3.2vw, 4.8rem);
+  --step-1: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --step-2: clamp(1.25rem, 1.15rem + 0.5vw, 1.55rem);
+  --step-3: clamp(1.6rem, 1.4rem + 1vw, 2.3rem);
+  --step-4: clamp(2.1rem, 1.6rem + 2.2vw, 3.4rem);
   --step-5: clamp(3.2rem, 1.9rem + 7vw, 8.6rem);
 
   /* Spacing */
@@ -19,19 +19,20 @@
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4.5rem;
-  --space-9: clamp(4.5rem, 3rem + 6vw, 8rem);
+  --space-6: 1.5rem;
+  --space-7: 2.25rem;
+  --space-8: 3rem;
+  --space-9: clamp(2.5rem, 1.5rem + 3.2vw, 4.25rem);
 
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --max: 1320px;
   --header-h: 80px;
 
   --radius-s: 2px;
-  --radius-m: 4px;
-  --radius-l: 6px;
-  --radius-pill: 999px;
+  --radius-m: 3px;
+  --radius-l: 7px;
+  --radius-pill: 3px;
+  --taskbar-h: 44px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 160ms;
@@ -58,9 +59,9 @@
   --crimson: #c8243a;
   --glow: rgba(90, 72, 224, 0.18);
   /* Hero sky (3D canvas backdrop) and the veil that keeps text readable over it */
-  --hero-sky: #eeedf5;
+  --hero-sky: #dde1f8;
   --hero-disc: #dcd8f0;
-  --hero-veil: 238 237 245;
+  --hero-veil: 221 225 248;
   /* Code-like panels (covers, terminal, contact) stay in night tones in both themes */
   --panel-bg: #0d0c16;
   --panel-elev: #15142a;
@@ -70,6 +71,24 @@
   --panel-accent: #9d8fff;
   --shadow: 0 1px 0 rgba(18, 17, 29, 0.04), 0 14px 36px -20px rgba(40, 30, 120, 0.35);
   --focus: #5a48e0;
+
+  /* Aero (light): pale lavender glass over a bright desktop */
+  --glass: rgba(206, 214, 246, 0.66);
+  --glass-edge: rgba(58, 48, 130, 0.5);
+  --glass-hi: rgba(255, 255, 255, 0.75);
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.18) 46%, rgba(255, 255, 255, 0) 47%, rgba(255, 255, 255, 0.12) 100%);
+  --win-body: #fbfbfe;
+  --title-ink: #1a1740;
+  --title-glow: 0 0 9px rgba(255, 255, 255, 0.95), 0 0 2px rgba(255, 255, 255, 0.9);
+  --btn-top: #fdfdff;
+  --btn-bot: #d9ddf2;
+  --btn-edge: #7d78b0;
+  --btn-ink: #1a1740;
+  --win-shadow: 0 8px 28px -8px rgba(40, 30, 120, 0.45), 0 2px 6px rgba(40, 30, 120, 0.25);
+  --desktop: radial-gradient(1100px 600px at 12% -10%, rgba(143, 128, 255, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 95% 10%, rgba(255, 150, 190, 0.22), transparent 60%),
+    linear-gradient(165deg, #e6e9fb 0%, #eceefb 45%, #dcd6f6 100%);
+  --orb-ring: #8f80ff;
 
   color-scheme: light;
 }
@@ -96,6 +115,24 @@
   --panel-elev: #14132a;
   --shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 18px 44px -22px rgba(0, 0, 0, 0.9);
   --focus: #b3a9ff;
+
+  /* Aero (dark): deep indigo glass with a violet sheen — the Sasuke desktop */
+  --glass: rgba(48, 42, 104, 0.58);
+  --glass-edge: rgba(176, 160, 255, 0.4);
+  --glass-hi: rgba(255, 255, 255, 0.28);
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0) 47%, rgba(143, 128, 255, 0.1) 100%);
+  --win-body: #0f0e1c;
+  --title-ink: #ece9ff;
+  --title-glow: 0 0 10px rgba(143, 128, 255, 0.7), 0 1px 2px rgba(0, 0, 0, 0.8);
+  --btn-top: #4a4390;
+  --btn-bot: #1d1a45;
+  --btn-edge: #0b0a1e;
+  --btn-ink: #efecff;
+  --win-shadow: 0 10px 34px -8px rgba(0, 0, 0, 0.85), 0 2px 8px rgba(0, 0, 0, 0.6);
+  --desktop: radial-gradient(1100px 650px at 10% -10%, rgba(120, 96, 255, 0.28), transparent 60%),
+    radial-gradient(900px 600px at 98% 12%, rgba(232, 57, 79, 0.12), transparent 60%),
+    linear-gradient(165deg, #080814 0%, #0b0a1a 50%, #0a0816 100%);
+  --orb-ring: #b3a9ff;
 
   color-scheme: dark;
 }

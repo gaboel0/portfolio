@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { ArrowUpRight, SearchX } from 'lucide-vue-next'
+import { ArrowUpRight, Folder, SearchX } from 'lucide-vue-next'
 import BrandIcon from '@/components/BrandIcon.vue'
+import AeroWindow from '@/components/AeroWindow.vue'
 import CoverStage from '@/components/CoverStage.vue'
 import FilterChips from '@/components/FilterChips.vue'
 import ProjectCard from '@/components/ProjectCard.vue'
@@ -36,7 +37,7 @@ const tagOptions = computed(() => {
   for (const p of pool.value) for (const t of p.tags) if (isFilterable(t)) counts.set(t, (counts.get(t) ?? 0) + 1)
   return [...counts.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 10)
+    .slice(0, 8)
     .map(([value, count]) => ({ value, count }))
 })
 
@@ -60,11 +61,10 @@ function reset() {
 <template>
   <section id="projetos" class="section" aria-labelledby="projetos-title">
     <div class="container">
-      <SectionHeading id="projetos-title" index="01" label="Projetos">
+      <SectionHeading id="projetos-title">
         Trabalho <em>selecionado</em>
         <template #lead>
-          Selecionados automaticamente dos meus repositórios públicos, priorizando documentação, atividade recente e
-          variedade de stack — não apenas estrelas.
+          Escolhidos entre meus repositórios públicos por documentação, atividade e variedade.
         </template>
       </SectionHeading>
 
@@ -94,16 +94,13 @@ function reset() {
             :project="p"
             variant="feature"
             :index="i"
-            :lead="i === 0 && !filtering"
-            :split="i === 3 && !filtering"
           />
         </div>
 
         <div v-if="othersView.length" class="others">
-          <h3 class="others-title">
-            <span class="eyebrow">Outros projetos</span>
-            <span class="mono count">{{ othersView.length }}</span>
-          </h3>
+          <h3 class="sr-only">Outros projetos</h3>
+          <AeroWindow as="div" flush :title="`Outros projetos (${othersView.length})`">
+            <template #icon><Folder /></template>
           <ol class="index" role="list">
             <li v-for="(p, i) in othersView" :key="p.repo.id" v-reveal="Math.min(i, 6) * 40">
               <a :href="p.repo.html_url" target="_blank" rel="noopener noreferrer" class="row">
@@ -111,7 +108,6 @@ function reset() {
                 <span class="main">
                   <span class="name">
                     {{ p.repo.name }}
-                    <span v-if="p.curation?.context" class="context mono">{{ p.curation.context }}</span>
                   </span>
                   <span v-if="p.description" class="desc">{{ p.description }}</span>
                   <span v-else class="desc desc--none">Repositório sem descrição pública.</span>
@@ -119,13 +115,13 @@ function reset() {
                 <span class="meta mono">
                   <span class="lang"><i :style="{ background: languageColor(p.repo.language) }" />{{ p.repo.language ?? '—' }}</span>
                   <time :datetime="p.repo.pushed_at">{{ formatRelative(p.repo.pushed_at) }}</time>
-                  <span v-if="p.descriptionSource === 'readme'" class="src">resumo do README</span>
                 </span>
                 <ArrowUpRight class="go" aria-hidden="true" />
                 <span class="sr-only">(abre o repositório no GitHub em nova aba)</span>
               </a>
             </li>
           </ol>
+          </AeroWindow>
         </div>
 
         <div v-if="!total" class="empty">
@@ -168,23 +164,9 @@ function reset() {
   margin-top: var(--space-8);
 }
 
-.others-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding-bottom: var(--space-4);
-  margin-bottom: var(--space-5);
-  border-bottom: 1px solid var(--line);
-}
-
-.count {
-  color: var(--accent-ink);
-  font-size: 0.75rem;
-}
-
 /* Index list ------------------------------------------------------------- */
 .index {
-  border-top: 1px solid var(--line-strong);
+  border-top: 0;
 }
 
 .row {
@@ -193,7 +175,7 @@ function reset() {
   grid-template-columns: 40px minmax(0, 1fr) 20px;
   gap: var(--space-2) var(--space-4);
   align-items: start;
-  padding: var(--space-5) var(--space-3);
+  padding: var(--space-4) var(--space-3);
   border-bottom: 1px solid var(--line);
   isolation: isolate;
 }
@@ -250,14 +232,6 @@ function reset() {
   transform: translateX(8px);
 }
 
-.context {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--ink-3);
-}
-
 .desc {
   max-width: 64ch;
   font-size: 0.92rem;
@@ -288,10 +262,6 @@ function reset() {
 .lang i {
   width: 8px;
   height: 8px;
-}
-
-.src {
-  color: var(--ink-3);
 }
 
 .go {
@@ -350,56 +320,21 @@ function reset() {
   }
 }
 
-/* Bento: tall lead on the left, two stacked tiles, a wide split card below. */
+/* Wide screens: a compact 2×2 grid, so the section stays short. */
 @media (min-width: 1024px) {
   .featured {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-auto-flow: dense;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .slot--0 {
-    grid-column: 1 / span 7;
-    grid-row: span 2;
-  }
-
+  .slot--0,
   .slot--1,
-  .slot--2 {
-    grid-column: 8 / span 5;
-  }
-
-  .slot--1 :deep(.project__cover),
-  .slot--2 :deep(.project__cover) {
-    aspect-ratio: 16 / 7;
-  }
-
+  .slot--2,
   .slot--3 {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   .slot--f {
-    grid-column: span 4;
-  }
-
-  .row {
-    grid-template-columns: 56px minmax(0, 1fr) 230px 24px;
-    align-items: center;
-    padding-inline: var(--space-4);
-  }
-
-  .meta {
-    grid-column: 3;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .go {
-    grid-column: 4;
-    grid-row: auto;
-    margin-top: 0;
-  }
-
-  .num {
-    padding-top: 0;
+    grid-column: auto;
   }
 }
 </style>

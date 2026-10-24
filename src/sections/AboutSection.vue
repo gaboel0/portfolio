@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { User } from 'lucide-vue-next'
+import AeroWindow from '@/components/AeroWindow.vue'
 import SectionHeading from '@/components/SectionHeading.vue'
 import { useGithub } from '@/composables/useGithub'
 import { profileSnapshot } from '@/data/github-snapshot'
-import { experience, person } from '@/data/profile'
-import { formatDuration } from '@/utils/format'
 
 const { profile } = useGithub()
 
@@ -15,18 +15,17 @@ const avatar = computed(() => {
   return url.href
 })
 const avatarFailed = ref(false)
-const bio = computed(() => profile.value?.bio ?? profileSnapshot.bio)
-const firstRole = experience[experience.length - 1]
-const tenure = firstRole ? formatDuration(firstRole.start, null) : ''
 </script>
 
 <template>
   <section id="sobre" class="section" aria-labelledby="sobre-title">
     <div class="container">
-      <SectionHeading id="sobre-title" index="03" label="Sobre mim">
+      <SectionHeading id="sobre-title">
         Front-end, <em>do Figma</em> ao código
       </SectionHeading>
 
+      <AeroWindow title="Sobre mim" as="div">
+        <template #icon><User /></template>
       <div class="grid">
         <figure class="portrait" v-reveal>
           <div class="frame">
@@ -41,52 +40,22 @@ const tenure = firstRole ? formatDuration(firstRole.start, null) : ''
               @error="avatarFailed = true"
             />
           </div>
-          <figcaption class="mono">
-            <span>{{ person.shortName }}</span>
-            <span>{{ person.location }}</span>
-          </figcaption>
         </figure>
 
         <div class="text">
-          <blockquote v-if="bio" class="quote" v-reveal>
-            <p>“{{ bio }}”</p>
-            <footer class="mono">— minha bio no GitHub</footer>
-          </blockquote>
-
-          <div class="prose" v-reveal="80">
+          <div class="prose" v-reveal>
             <p>
-              Sou desenvolvedor de software em Marília, no interior de São Paulo. Entrei na Unipac em 2022 como estagiário,
-              mantendo interfaces de plataformas web, e desde março de 2023 atuo como assistente de desenvolvimento, cuidando
-              do front-end dessas plataformas.
+              Sou desenvolvedor de software em Marília, SP. Comecei na Unipac em 2022 como estagiário e, desde março de 2023,
+              cuido do front-end de plataformas web como assistente de desenvolvimento.
             </p>
             <p>
-              No dia a dia, alterno entre Angular, Ionic, Vue e Flutter. Trabalhar com frameworks diferentes me fez prestar
-              mais atenção no problema do que na ferramenta: componentes claros, código bem versionado e telas que passam pelo
-              Figma antes de virar código.
-            </p>
-            <p>
-              Uso ferramentas de IA como parte do fluxo de desenvolvimento e participo de iniciativas de inovação na empresa.
-              Em paralelo, curso Análise e Desenvolvimento de Sistemas na Unimar e sigo ampliando meu repertório, hoje
-              principalmente em back-end e cloud.
+              Trabalho em produtos web e mobile e presto mais atenção ao problema do que à ferramenta. Uso IA no fluxo de
+              desenvolvimento, curso Análise e Desenvolvimento de Sistemas na Unimar e sigo aprendendo back-end e cloud.
             </p>
           </div>
-
-          <dl class="facts" v-reveal="140">
-            <div>
-              <dt class="eyebrow">Na Unipac há</dt>
-              <dd>{{ tenure }}</dd>
-            </div>
-            <div>
-              <dt class="eyebrow">Foco</dt>
-              <dd>Front-end web e mobile</dd>
-            </div>
-            <div>
-              <dt class="eyebrow">Estudando</dt>
-              <dd>Back-end e cloud</dd>
-            </div>
-          </dl>
         </div>
       </div>
+      </AeroWindow>
     </div>
   </section>
 </template>
@@ -98,7 +67,7 @@ const tenure = firstRole ? formatDuration(firstRole.start, null) : ''
 }
 
 .portrait {
-  max-width: 380px;
+  max-width: 260px;
 }
 
 .frame {
@@ -142,40 +111,11 @@ const tenure = firstRole ? formatDuration(firstRole.start, null) : ''
   filter: grayscale(0);
 }
 
-figcaption {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding-top: var(--space-3);
-  font-size: 0.72rem;
-  color: var(--ink-3);
-}
-
-.quote {
-  margin: 0 0 var(--space-6);
-  padding-left: var(--space-5);
-  border-left: 2px solid var(--accent);
-}
-
-.quote p {
-  font-family: var(--font-display);
-  font-size: var(--step-3);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-}
-
-.quote footer {
-  margin-top: var(--space-3);
-  font-size: 0.72rem;
-  color: var(--ink-3);
-}
-
 .prose {
   display: grid;
   gap: var(--space-4);
   max-width: 62ch;
-  font-size: var(--step-1);
+  font-size: var(--step-0);
   line-height: 1.6;
   color: var(--ink-2);
 }
@@ -184,26 +124,10 @@ figcaption {
   color: var(--ink);
 }
 
-.facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-7);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--line);
-}
-
-.facts dd {
-  margin-top: 4px;
-  font-weight: 600;
-  font-size: var(--step-1);
-  letter-spacing: -0.02em;
-}
-
 @media (min-width: 960px) {
   .grid {
-    grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.6fr);
-    gap: var(--space-9);
+    grid-template-columns: 260px minmax(0, 62ch);
+    gap: var(--space-8);
     align-items: start;
   }
 

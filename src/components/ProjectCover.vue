@@ -30,7 +30,6 @@ function hash(value: string) {
 
 const seed = computed(() => hash(props.name))
 const title = computed(() => prettifyRepoName(props.name))
-const words = computed(() => title.value.split(' '))
 const color = computed(() => languageColor(props.language))
 
 /** Deterministic layout knobs so each cover is distinct but stable. */
@@ -45,8 +44,6 @@ const layout = computed(() => {
     tilt: 20 + ((s >>> 12) % 6) * 25, // crescent orientation
   }
 })
-
-const lines = computed(() => props.stack.slice(0, props.size === 'l' ? 4 : 3))
 
 /** Which 3D emblem the cover stage draws, by stack family. */
 const kind = computed(() => {
@@ -83,18 +80,6 @@ const kind = computed(() => {
   >
     <div class="grid" aria-hidden="true" />
     <div class="block" aria-hidden="true" />
-    <div class="top mono" aria-hidden="true">
-      <span>~/{{ name }}</span>
-      <span>{{ String(index + 1).padStart(2, '0') }}</span>
-    </div>
-    <p class="word" aria-hidden="true">
-      <span v-for="(w, i) in words.slice(0, 3)" :key="i" :class="{ hollow: i % 2 === 1 }">{{ w }}</span>
-    </p>
-    <ul class="imports mono" role="list" aria-hidden="true">
-      <li v-for="item in lines" :key="item">
-        <span class="kw">import</span> {{ item.toLowerCase().replace(/\s+/g, '-') }}
-      </li>
-    </ul>
     <span class="lang mono" aria-hidden="true"><i />{{ language ?? 'sem linguagem' }}</span>
   </div>
 </template>
@@ -103,7 +88,7 @@ const kind = computed(() => {
 .cover {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 5;
   --accent: var(--panel-accent);
   background: var(--panel-bg);
   color: var(--panel-ink);
@@ -148,61 +133,10 @@ const kind = computed(() => {
   transform: rotate(-60deg);
 }
 
-.top {
-  position: absolute;
-  inset: 14px 16px auto;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  opacity: 0.7;
-}
-
-.word {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 22%;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.25em;
-  font-size: clamp(1.3rem, 7.4cqi, 3.6rem);
-  font-weight: 600;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-}
-
 .word {
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
-}
-
-.word .hollow {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--panel-ink);
-}
-
-.imports {
-  position: absolute;
-  left: 16px;
-  bottom: 14px;
-  font-size: 0.66rem;
-  line-height: 1.55;
-  opacity: 0.62;
-}
-
-.cover--m .imports {
-  display: none;
-}
-
-@container (max-width: 560px) {
-  .imports {
-    display: none;
-  }
-}
-
-.kw {
-  color: var(--accent);
 }
 
 .lang {

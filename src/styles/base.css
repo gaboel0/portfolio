@@ -15,11 +15,12 @@ body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg);
+  background-image: var(--desktop);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--step-0);
   line-height: 1.6;
-  font-feature-settings: 'ss01';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -45,9 +46,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -94,6 +95,45 @@ button {
   border-radius: var(--radius-s);
 }
 
+/* Scrollbar: no track, only a slim glass thumb, so it never competes with the theme. */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 1px solid var(--glass-edge);
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--glass-hi), color-mix(in srgb, var(--accent) 55%, transparent));
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 1px var(--glass-hi);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, var(--glass-hi), color-mix(in srgb, var(--accent) 80%, transparent));
+}
+
+/* Firefox has no pseudo-elements; Chromium ignores these once ::-webkit-scrollbar is supported. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--accent) 60%, transparent) transparent;
+  }
+}
+
 .container {
   width: 100%;
   max-width: var(--max);
@@ -102,8 +142,7 @@ button {
 }
 
 .section {
-  padding-block: var(--space-9);
-  border-top: 1px solid var(--line);
+  padding-block: var(--space-8);
 }
 
 .sr-only {
@@ -137,145 +176,125 @@ button {
 
 .mono {
   font-family: var(--font-mono);
-  font-size: 0.74em;
-  letter-spacing: -0.02em;
+  font-size: 0.86em;
+  letter-spacing: 0;
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: 0.78rem;
   color: var(--ink-3);
 }
 
-/* Hollow display text — the counterpart to solid headings. */
-.outline,
+/* The emphasised word of a heading is set light and tinted. */
 h1 em,
 h2 em {
   font-style: normal;
-  color: transparent;
-  -webkit-text-stroke: 1.5px currentColor;
-  -webkit-text-stroke-color: var(--ink);
+  font-weight: 300;
+  color: var(--accent-ink);
 }
 
-/* HUD-style corner brackets for panels and cards. */
-.hud {
-  position: relative;
-}
-
-.hud::after {
-  --c: var(--accent);
-  --l: 12px;
-  content: '';
-  position: absolute;
-  inset: -1px;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--c), var(--c)) top left / var(--l) 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) top left / 1px var(--l) no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / var(--l) 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / 1px var(--l) no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / 1px var(--l) no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / 1px var(--l) no-repeat;
-  opacity: 0.55;
-  transition: opacity var(--dur) ease;
-}
-
-.hud:hover::after,
-.hud:focus-within::after {
-  opacity: 1;
-}
-
-.jp {
-  font-family: var(--font-jp);
-  font-style: normal;
-  font-weight: 500;
-}
-
-/* Film grain over the whole page — very low opacity, purely decorative. */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-:root[data-theme='light'] body::after {
-  opacity: 0.035;
-}
 
 .accent {
   color: var(--accent-ink);
 }
 
-/* Buttons */
+/* Buttons — glossy Aero push buttons */
 .btn {
-  --btn-bg: transparent;
-  --btn-ink: var(--ink);
-  --btn-line: var(--line-strong);
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
-  min-height: 48px;
-  padding: 0 1.4em;
-  border: 1px solid var(--btn-line);
+  gap: 0.55em;
+  min-height: 38px;
+  padding: 0 1.15em;
+  border: 1px solid var(--btn-edge);
   border-radius: var(--radius-pill);
-  background: var(--btn-bg);
+  background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 2px rgba(0, 0, 0, 0.3);
   color: var(--btn-ink);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
   transition:
-    background-color var(--dur-fast) ease,
-    color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
-    transform var(--dur-fast) var(--ease-out);
+    filter var(--dur-fast) ease;
+}
+
+/* Upper-half gloss, the signature of Aero controls. */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 50% 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+
+/* Hover glow rising from the bottom edge. */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 130%, color-mix(in srgb, var(--accent) 75%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur) ease;
+  pointer-events: none;
 }
 
 .btn svg {
   width: 1.05em;
   height: 1.05em;
   flex: none;
-  transition: transform var(--dur) var(--ease-out);
 }
 
 .btn:hover {
-  --btn-line: var(--ink);
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    0 0 12px -2px var(--accent),
+    0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.btn:hover svg.arrow {
-  transform: translateX(3px);
+.btn:hover::after {
+  opacity: 1;
 }
 
 .btn:active {
-  transform: translateY(1px);
+  filter: brightness(0.9);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 
 .btn--primary {
-  --btn-bg: var(--ink);
-  --btn-ink: var(--bg);
-  --btn-line: var(--ink);
-}
-
-.btn--primary:hover {
-  --btn-bg: var(--accent);
-  --btn-line: var(--accent);
-  --btn-ink: var(--on-accent);
+  --btn-top: #9a8ef7;
+  --btn-bot: #4a39c9;
+  --btn-edge: #2b1f8f;
+  --btn-ink: #ffffff;
+  text-shadow: 0 1px 1px rgba(20, 10, 80, 0.6);
 }
 
 .btn--ghost {
-  --btn-line: transparent;
-  padding-inline: 0.6em;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink);
+  padding-inline: 0.7em;
+}
+
+.btn--ghost::before {
+  display: none;
 }
 
 .btn--ghost:hover {
-  --btn-line: var(--line-strong);
+  border-color: var(--glass-edge);
+  background: linear-gradient(180deg, var(--glass-hi), transparent);
+  box-shadow: none;
 }
 
 /* Link with animated underline */
@@ -294,12 +313,13 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  padding: 0.2em 0.6em;
-  border: 1px solid var(--line);
+  padding: 0.15em 0.6em;
+  border: 1px solid var(--glass-edge);
   border-radius: var(--radius-s);
+  background: linear-gradient(180deg, var(--glass-hi), transparent 70%);
   font-family: var(--font-mono);
-  font-size: 0.64rem;
-  line-height: 1.7;
+  font-size: 0.72rem;
+  line-height: 1.6;
   color: var(--ink-2);
   white-space: nowrap;
 }

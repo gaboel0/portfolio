@@ -169,7 +169,7 @@ function buildD20(g: Group) {
   label.dispose()
   shape.dispose()
   // The die is the star of its cover: draw it larger than the other emblems.
-  g.userData.boost = 1.45
+  g.userData.boost = 1.15
 }
 
 /** One emblem per stack family, so each card reads differently. */
@@ -343,15 +343,14 @@ export function createCoverStage(canvas: HTMLCanvasElement, container: HTMLEleme
         e.emblem.rotation.y += dt * e.spin * (1 + e.hover * 3)
         e.emblem.rotation.x += dt * e.spin * 0.35
       }
-      // Emblem sits in the upper-right of the cover, clear of the title below.
+      // The emblem is centred; the card title below carries the name.
       e.camera.aspect = w / h
       const halfH = Math.tan((e.camera.fov * Math.PI) / 360) * e.camera.position.z
-      const halfW = halfH * e.camera.aspect
       const boost = (e.emblem.userData.boost as number | undefined) ?? 1
-      const size = Math.min(Math.min(halfW * 0.4, halfH * 0.7) * boost, halfH * 0.86) // emblem radius in world units
+      const size = Math.min(halfH * 1.0 * boost, halfH * 1.0)
       const scale = (size / 0.75) * (e.emblem.userData.norm as number) * (1 + e.hover * 0.12)
       e.emblem.scale.setScalar(scale)
-      e.emblem.position.set(halfW - size * 1.1 - halfW * 0.05, halfH - size * 1.1 - halfH * 0.1, 0)
+      e.emblem.position.set(0, 0, 0)
       e.camera.updateProjectionMatrix()
 
       renderer.setViewport(x, y, w, h)

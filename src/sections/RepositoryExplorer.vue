@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { ArrowUpRight, GitFork, Star } from 'lucide-vue-next'
+import { ArrowUpRight, FolderOpen } from 'lucide-vue-next'
+import AeroWindow from '@/components/AeroWindow.vue'
 import SearchField from '@/components/SearchField.vue'
 import SectionHeading from '@/components/SectionHeading.vue'
 import { MIN_COMMITS, useGithub } from '@/composables/useGithub'
@@ -9,7 +10,7 @@ import { formatDate, formatRelative } from '@/utils/format'
 import { languageColor } from '@/utils/languages'
 import { matchesQuery, sortProjects, type SortKey } from '@/utils/projects'
 
-const { status, projects, hiddenCount } = useGithub()
+const { status, projects } = useGithub()
 
 const NO_LANGUAGE = '__none__'
 const query = ref('')
@@ -52,16 +53,17 @@ const loading = computed(() => status.value !== 'ready')
 </script>
 
 <template>
-  <section id="repositorios" class="section explorer" aria-labelledby="repositorios-title">
+  <section id="repositorios" class="section" aria-labelledby="repositorios-title">
     <div class="container">
-      <SectionHeading id="repositorios-title" index="02" label="Arquivo">
+      <SectionHeading id="repositorios-title">
         Todos os <em>repositórios</em>
         <template #lead>
-          A lista completa, como está no GitHub, só com repositórios de pelo menos {{ MIN_COMMITS }} commits e descrição
-          pública. Quando a descrição vem do README e não do GitHub, isso fica indicado.
+          Repositórios públicos com pelo menos {{ MIN_COMMITS }} commits e descrição.
         </template>
       </SectionHeading>
 
+      <AeroWindow as="div" title="Repositórios — Explorador de arquivos">
+        <template #icon><FolderOpen /></template>
       <form class="controls" role="search" aria-label="Filtrar repositórios" @submit.prevent>
         <SearchField id="repo-search" v-model="query" label="Buscar repositórios" placeholder="Buscar repositório" />
 
@@ -88,7 +90,6 @@ const loading = computed(() => status.value !== 'ready')
         <template v-if="loading">Carregando repositórios…</template>
         <template v-else>
           {{ view.length }} de {{ projects.length }} repositórios
-          <span v-if="hiddenCount"> · {{ hiddenCount }} ocultos (menos de {{ MIN_COMMITS }} commits ou sem descrição)</span>
         </template>
       </p>
 
@@ -96,7 +97,6 @@ const loading = computed(() => status.value !== 'ready')
         <div class="row head mono" aria-hidden="true">
           <span>Repositório</span>
           <span>Linguagem</span>
-          <span>Popularidade</span>
           <span>Atualizado</span>
         </div>
 
@@ -115,7 +115,7 @@ const loading = computed(() => status.value !== 'ready')
               <span v-if="statusLabel[p.status]" class="flag mono">{{ statusLabel[p.status] }}</span>
               <p v-if="p.repo.description" class="desc">{{ p.repo.description }}</p>
               <p v-else-if="p.curation" class="desc">
-                {{ p.curation.summary }} <span class="from mono">Resumo do README</span>
+                {{ p.curation.summary }}
               </p>
               <p v-else class="desc desc--none">Sem descrição no GitHub</p>
             </div>
@@ -123,11 +123,6 @@ const loading = computed(() => status.value !== 'ready')
               <span class="label-m">Linguagem</span>
               <span v-if="p.repo.language" class="lang"><i :style="{ background: languageColor(p.repo.language) }" />{{ p.repo.language }}</span>
               <span v-else class="none">—</span>
-            </div>
-            <div class="cell-pop mono">
-              <span class="label-m">Popularidade</span>
-              <span :aria-label="`${p.repo.stargazers_count} estrelas`"><Star aria-hidden="true" />{{ p.repo.stargazers_count }}</span>
-              <span :aria-label="`${p.repo.forks_count} forks`"><GitFork aria-hidden="true" />{{ p.repo.forks_count }}</span>
             </div>
             <div class="cell-date mono">
               <span class="label-m">Atualizado</span>
@@ -141,15 +136,12 @@ const loading = computed(() => status.value !== 'ready')
           <button type="button" class="btn btn--ghost" @click="(query = ''), (language = '')">Limpar filtros</button>
         </p>
       </div>
+      </AeroWindow>
     </div>
   </section>
 </template>
 
 <style scoped>
-.explorer {
-  background: var(--bg-sunken);
-}
-
 .controls {
   display: grid;
   gap: var(--space-4);
@@ -188,14 +180,15 @@ select:hover {
 }
 
 .table {
-  border-top: 1px solid var(--ink);
+  border: 1px solid var(--line-strong);
+  background: var(--win-body);
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-2) var(--space-5);
-  padding: var(--space-5) 0;
+  padding: var(--space-3) 0;
   border-bottom: 1px solid var(--line-strong);
 }
 
@@ -272,28 +265,12 @@ select:hover {
   color: var(--ink-2);
 }
 
-.from {
-  margin-left: 6px;
-  font-size: 0.66rem;
-  color: var(--ink-3);
-  white-space: nowrap;
-}
-
 .desc--none {
   color: var(--ink-3);
   font-style: italic;
 }
 
 .cell-lang,
-.cell-pop,
-.cell-date {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: 0.75rem;
-  color: var(--ink-2);
-}
-
 .label-m {
   min-width: 96px;
   color: var(--ink-3);
@@ -303,20 +280,9 @@ select:hover {
 }
 
 .lang,
-.cell-pop span:not(.label-m) {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .lang i {
   width: 8px;
   height: 8px;
-}
-
-.cell-pop svg {
-  width: 13px;
-  height: 13px;
 }
 
 .none {
@@ -362,18 +328,18 @@ select:hover {
   }
 
   .row {
-    grid-template-columns: minmax(0, 1fr) 150px 130px 140px;
+    grid-template-columns: minmax(0, 1fr) 150px 140px;
     align-items: baseline;
     padding-inline: var(--space-3);
   }
 
   .head {
     display: grid;
-    padding-block: var(--space-3);
-    font-size: 0.66rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--line-strong);
+    background: linear-gradient(180deg, var(--glass-hi), transparent 90%);
+    font-size: 0.8rem;
+    color: var(--ink-2);
   }
 
   .label-m {

@@ -1,4 +1,4 @@
-import type { Role, SkillGroup } from '@/types/portfolio'
+import type { Problem, Role } from '@/types/portfolio'
 
 /** Conteúdo do currículo. Fonte: informações fornecidas por Gabriel. */
 export const person = {
@@ -21,16 +21,13 @@ export const experience: Role[] = [
     end: null,
     current: true,
     summary:
-      'Desenvolvo e mantenho o front-end de plataformas web, transitando entre os frameworks que cada produto exige.',
+      'Desenvolvo e mantenho o front-end de plataformas web, adaptando-me ao que cada produto exige.',
     responsibilities: [
       'Manutenção e desenvolvimento front-end de plataformas web',
-      'Trabalho com Angular, Ionic, Vue e Flutter',
-      'Versionamento e gerenciamento de código com Git',
-      'Criação de interfaces e protótipos no Figma',
-      'Uso de ferramentas de IA para apoiar o desenvolvimento',
-      'Participação em iniciativas de inovação e transformação',
+      'Interfaces e protótipos de tela',
+      'Versionamento e gerenciamento de código',
+      'Uso de IA e participação em iniciativas de inovação',
     ],
-    stack: ['Angular', 'Ionic', 'Vue', 'Flutter', 'Git', 'Figma'],
   },
   {
     title: 'Estagiário',
@@ -41,12 +38,11 @@ export const experience: Role[] = [
     summary: 'Primeiro contato com produtos em produção: interfaces, versionamento e banco de dados.',
     responsibilities: [
       'Manutenção de interfaces de plataformas web',
-      'Desenvolvimento front-end com frameworks',
-      'Gerenciamento de código com GitHub e GitLab',
-      'Criação de telas no Figma',
-      'Uso de MySQL e estudo de novas tecnologias',
+      'Desenvolvimento front-end em produtos já existentes',
+      'Gerenciamento de código em repositórios do time',
+      'Criação de telas',
+      'Trabalho com banco de dados e estudo de novas tecnologias',
     ],
-    stack: ['GitHub', 'GitLab', 'Figma', 'MySQL'],
   },
 ]
 
@@ -70,46 +66,51 @@ export const languages = [
   },
 ]
 
-export const skillGroups: SkillGroup[] = [
+/**
+ * Problems I solve. Everything here comes from the resume (Unipac) or from the
+ * README of a public repository, which is linked as proof.
+ */
+export const problems: Problem[] = [
   {
-    id: 'front',
-    title: 'Front-end',
-    description: 'Onde passo a maior parte do dia: interfaces web e mobile.',
-    items: [
-      { name: 'Vue.js', note: 'Composition API, SPAs e consumo de APIs', icon: 'vue' },
-      { name: 'Angular', note: 'Plataformas web no trabalho e em projetos', icon: 'angular' },
-      { name: 'Ionic', note: 'Apps híbridos com Angular e Capacitor', icon: 'ionic' },
-      { name: 'Flutter', note: 'Interfaces multiplataforma', icon: 'flutter' },
-    ],
+    title: 'Plataformas que não podem parar de evoluir',
+    problem: 'Uma plataforma no ar sempre pede ajuste de tela e funcionalidade nova.',
+    solution: 'Mantenho e desenvolvo o front-end de plataformas web, entregando o que falta sem parar o que existe.',
+    proof: { label: 'Na Unipac' },
   },
   {
-    id: 'back',
-    title: 'Back-end e programação',
-    description: 'Linguagens e frameworks que uso além da interface.',
-    items: [
-      { name: 'TypeScript', note: 'Base dos meus projetos front-end', icon: 'typescript' },
-      { name: 'C#', note: 'Linguagem orientada a objetos', icon: 'csharp' },
-      { name: 'AdonisJS', note: 'APIs em Node.js', icon: 'adonis' },
-    ],
+    title: 'Ideias que ainda não têm cara',
+    problem: 'Sem tela, cada pessoa imagina uma coisa diferente.',
+    solution: 'Desenho telas e protótipos e levo o desenho até a implementação.',
+    proof: { label: 'Na Unipac' },
   },
   {
-    id: 'data',
-    title: 'Banco de dados',
-    description: 'Banco relacional presente desde o estágio.',
-    items: [{ name: 'MySQL', note: 'Consultas e dados em plataformas web', icon: 'mysql' }],
+    title: 'Um produto, vários formatos',
+    problem: 'Cada produto tem uma base de código diferente, na web ou no celular.',
+    solution: 'Trabalho com interfaces web e mobile e me adapto ao que cada produto exige.',
+    proof: { label: 'Na Unipac' },
   },
   {
-    id: 'tools',
-    title: 'Ferramentas e produtividade',
-    description: 'Versionamento, design e assistentes de IA no fluxo de trabalho.',
-    items: [
-      { name: 'Git', note: 'Versionamento diário', icon: 'git' },
-      { name: 'GitHub', note: 'Repositórios e colaboração', icon: 'github' },
-      { name: 'GitLab', note: 'Repositórios corporativos', icon: 'gitlab' },
-      { name: 'Figma', note: 'Telas e protótipos', icon: 'figma' },
-      { name: 'Claude', note: 'Assistente de IA', icon: 'claude' },
-      { name: 'GitHub Copilot', note: 'Autocompletar no editor', icon: 'copilot' },
-      { name: 'Codex', note: 'Agente de código', icon: 'codex' },
-    ],
+    title: 'Projetos sem um lugar para acompanhar',
+    problem: 'Sem um painel, projetos e tarefas se perdem.',
+    solution: 'Criei um painel com indicadores, quadro de tarefas e detalhes de cada projeto.',
+    proof: { label: 'Nexus-CRM', repo: 'Nexus-CRM' },
+  },
+  {
+    title: 'Dados de API difíceis de consultar',
+    problem: 'Dados crus de uma API são difíceis de ler e comparar.',
+    solution: 'Transformei os dados de uma API de RPG numa consulta com busca e detalhes em português.',
+    proof: { label: 'DandD', repo: 'DandD' },
+  },
+  {
+    title: 'Dispositivos que perdem a conexão',
+    problem: 'Um dispositivo conectado precisa continuar enviando dados quando a rede cai.',
+    solution: 'Num projeto de IoT, o dispositivo se reconecta sozinho e monitora a própria saúde.',
+    proof: { label: 'ProjetoP2_IoT', repo: 'ProjetoP2_IoT' },
+  },
+  {
+    title: 'Trabalho repetitivo que toma tempo',
+    problem: 'Parte do desenvolvimento é repetição e tira tempo de quem decide.',
+    solution: 'Uso ferramentas de IA no fluxo de desenvolvimento e participo de iniciativas de inovação.',
+    proof: { label: 'Na Unipac' },
   },
 ]
