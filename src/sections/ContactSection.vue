@@ -30,7 +30,7 @@ const [user, domain] = person.email.split('@')
       <AeroWindow as="div" title="Nova mensagem" v-reveal>
         <template #icon><Mail /></template>
 
-        <h2 id="contato-title" class="title">Vamos <em>conversar</em>?</h2>
+        <h2 id="contato-title" class="title">Vamos conversar?</h2>
         <p class="lead">
           Se você recruta para um time de produto ou é dev e quer trocar uma ideia sobre front-end, minha caixa de entrada
           está aberta.
@@ -52,7 +52,7 @@ const [user, domain] = person.email.split('@')
           </div>
           <div class="field">
             <dt>Local:</dt>
-            <dd class="where"><MapPin aria-hidden="true" />Marília, SP — Brasil</dd>
+            <dd class="where"><MapPin aria-hidden="true" />Marília, SP, Brasil</dd>
           </div>
         </dl>
         <span class="sr-only" aria-live="polite">{{ copied ? 'E-mail copiado para a área de transferência' : '' }}</span>
@@ -87,9 +87,6 @@ const [user, domain] = person.email.split('@')
   text-shadow: var(--title-glow);
 }
 
-.title :deep(em) {
-  font-weight: 600;
-}
 
 .lead {
   max-width: 52ch;
@@ -125,12 +122,12 @@ const [user, domain] = person.email.split('@')
 .field dd {
   flex: 1;
   min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 .mail-link {
-  font-size: var(--step-1);
+  font-size: clamp(0.78rem, 3.7vw, 1.2rem);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .mail-link .d {
@@ -156,7 +153,8 @@ const [user, domain] = person.email.split('@')
 }
 
 .copy {
-  min-height: 30px;
+  white-space: nowrap;
+  min-height: 44px;
   padding-inline: 0.8em;
   font-size: 0.8rem;
 }

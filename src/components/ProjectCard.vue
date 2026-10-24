@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ArrowUpRight, ExternalLink, Folder, Star } from 'lucide-vue-next'
+import { ArrowUpRight, ExternalLink, Folder, Maximize2, Star } from 'lucide-vue-next'
 import AeroWindow from './AeroWindow.vue'
 import ProjectCover from './ProjectCover.vue'
 import type { Project } from '@/types/portfolio'
+import { useProjectModal } from '@/composables/useProjectModal'
+import { getMicroFrontend } from '@/data/microfrontends'
 import { formatRelative } from '@/utils/format'
 import { languageColor } from '@/utils/languages'
 
@@ -13,6 +15,17 @@ const props = withDefaults(
 )
 
 const repo = computed(() => props.project.repo)
+
+// Projects with a micro-frontend open in a window; the rest link to GitHub.
+const { open } = useProjectModal()
+const hasWindow = computed(() => getMicroFrontend(repo.value.name) !== null)
+
+function onOpen(event: MouseEvent) {
+  if (!hasWindow.value || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey) return
+  event.preventDefault()
+  const card = (event.currentTarget as HTMLElement).closest<HTMLElement>('.project')
+  if (card) open(props.project, card.getBoundingClientRect())
+}
 const title = computed(() => repo.value.name)
 </script>
 
@@ -42,11 +55,21 @@ const title = computed(() => repo.value.name)
       </div>
 
       <h3 class="project__title">
-        <a :href="repo.html_url" target="_blank" rel="noopener noreferrer" class="project__link">
+        <a
+          :href="repo.html_url"
+          :target="hasWindow ? undefined : '_blank'"
+          :rel="hasWindow ? undefined : 'noopener noreferrer'"
+          :aria-haspopup="hasWindow ? 'dialog' : undefined"
+          class="project__link"
+          @click="onOpen"
+        >
           {{ title }}
-          <span class="sr-only">(abre o repositório no GitHub em nova aba)</span>
+          <span class="sr-only">{{
+            hasWindow ? '(abre a apresentação do projeto em uma janela)' : '(abre o repositório no GitHub em nova aba)'
+          }}</span>
         </a>
-        <ArrowUpRight class="project__arrow" aria-hidden="true" />
+        <Maximize2 v-if="hasWindow" class="project__arrow" aria-hidden="true" />
+        <ArrowUpRight v-else class="project__arrow" aria-hidden="true" />
       </h3>
 
       <p v-if="project.description" class="project__desc">{{ project.description }}</p>

@@ -56,13 +56,13 @@ const loading = computed(() => status.value !== 'ready')
   <section id="repositorios" class="section" aria-labelledby="repositorios-title">
     <div class="container">
       <SectionHeading id="repositorios-title">
-        Todos os <em>repositórios</em>
+        Todos os repositórios
         <template #lead>
           Repositórios públicos com pelo menos {{ MIN_COMMITS }} commits e descrição.
         </template>
       </SectionHeading>
 
-      <AeroWindow as="div" title="Repositórios — Explorador de arquivos">
+      <AeroWindow as="div" title="Repositórios: Explorador de arquivos">
         <template #icon><FolderOpen /></template>
       <form class="controls" role="search" aria-label="Filtrar repositórios" @submit.prevent>
         <SearchField id="repo-search" v-model="query" label="Buscar repositórios" placeholder="Buscar repositório" />
@@ -122,7 +122,7 @@ const loading = computed(() => status.value !== 'ready')
             <div class="cell-lang mono">
               <span class="label-m">Linguagem</span>
               <span v-if="p.repo.language" class="lang"><i :style="{ background: languageColor(p.repo.language) }" />{{ p.repo.language }}</span>
-              <span v-else class="none">—</span>
+              <span v-else class="none">Sem linguagem</span>
             </div>
             <div class="cell-date mono">
               <span class="label-m">Atualizado</span>
@@ -154,13 +154,13 @@ const loading = computed(() => status.value !== 'ready')
 }
 
 .select .eyebrow {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
 }
 
 select {
   min-height: 46px;
   padding: 0 40px 0 14px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--ink-3);
   border-radius: var(--radius-m);
   background: var(--bg-elev)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23888' stroke-width='1.6'%3E%3Cpath d='M2 4.5 6 8.5l4-4'/%3E%3C/svg%3E")
@@ -170,7 +170,7 @@ select {
 }
 
 select:hover {
-  border-color: var(--ink-3);
+  border-color: var(--ink-2);
 }
 
 .summary {
@@ -252,9 +252,7 @@ select:hover {
   padding: 0.1em 0.5em;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-s);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
   color: var(--ink-3);
   vertical-align: 0.25em;
 }
@@ -274,9 +272,7 @@ select:hover {
 .label-m {
   min-width: 96px;
   color: var(--ink-3);
-  text-transform: uppercase;
-  font-size: 0.64rem;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
 }
 
 .lang,
@@ -337,7 +333,7 @@ select:hover {
     display: grid;
     padding-block: var(--space-2);
     border-bottom: 1px solid var(--line-strong);
-    background: linear-gradient(180deg, var(--glass-hi), transparent 90%);
+    background: color-mix(in srgb, var(--glass-hi) 22%, transparent);
     font-size: 0.8rem;
     color: var(--ink-2);
   }

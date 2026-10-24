@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DandD: Grimório de Classes</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../shared/aero.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>Grimório de Classes</h1>
+        <p>
+          Projeto acadêmico em Vue 3 que consome a D&amp;D 5e SRD API para exibir as 12 classes jogáveis do sistema de regras
+          D&amp;D 5ª edição (SRD 2014).
+        </p>
+        <div class="meta">
+          <span class="tag">Vue 3</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Vue Router</span>
+          <span class="tag">Tailwind CSS 4</span>
+          <span class="tag">Vite</span>
+        </div>
+      </header>
+
+      <div>
+        <div role="tablist" aria-label="Seções do projeto">
+          <button role="tab" id="t-overview" aria-controls="p-overview">Visão geral</button>
+          <button role="tab" id="t-live" aria-controls="p-live">Amostra ao vivo</button>
+          <button role="tab" id="t-run" aria-controls="p-run">Tecnologias</button>
+        </div>
+
+        <section role="tabpanel" id="p-overview" aria-labelledby="t-overview">
+          <h2>O que o projeto faz</h2>
+          <ul class="list">
+            <li>Listagem das 12 classes em um grid responsivo, cada uma com cor e ícone temáticos.</li>
+            <li>Busca em tempo real por nome, em português ou em inglês.</li>
+            <li>Página de detalhes com dado de vida, salvaguardas, proficiências, subclasses e informações de conjuração.</li>
+            <li>Interface totalmente em português do Brasil, incluindo os dados que vêm da API.</li>
+          </ul>
+          <p class="note">Tema escuro, de RPG medieval, substituindo a tradicional Pokédex por um compêndio de aventureiros.</p>
+          <div class="langs" id="langs" aria-live="polite"></div>
+        </section>
+
+        <section role="tabpanel" id="p-live" aria-labelledby="t-live" hidden>
+          <h2>A API que o projeto consome</h2>
+          <p class="note">
+            Esta amostra chama a mesma D&amp;D 5e SRD API (versão 2014) e mostra os dados como ela os entrega, no idioma que o
+            navegador pede. Não é o aplicativo em si.
+          </p>
+          <label for="q">Buscar classe</label>
+          <input id="q" type="search" placeholder="Ex.: mago ou wizard" autocomplete="off" />
+          <ul class="classes" id="classes"></ul>
+          <p class="empty" id="status" role="status">Carregando as classes…</p>
+          <dl class="facts" id="detail" hidden>
+            <div><dt>Classe</dt><dd id="d-name"></dd></div>
+            <div><dt>Dado de vida</dt><dd id="d-hd"></dd></div>
+            <div><dt>Salvaguardas</dt><dd id="d-saves"></dd></div>
+            <div><dt>Subclasses</dt><dd id="d-sub"></dd></div>
+            <div><dt>Conjuração</dt><dd id="d-cast"></dd></div>
+          </dl>
+        </section>
+
+        <section role="tabpanel" id="p-run" aria-labelledby="t-run" hidden>
+          <h2>Pilha técnica</h2>
+          <dl class="facts">
+            <div><dt>Framework</dt><dd>Vue 3, com &lt;script setup&gt;</dd></div>
+            <div><dt>Linguagem</dt><dd>TypeScript 6</dd></div>
+            <div><dt>Navegação</dt><dd>Vue Router 5 (início e detalhe)</dd></div>
+            <div><dt>Estilo</dt><dd>Tailwind CSS 4</dd></div>
+            <div><dt>Build</dt><dd>Vite 8</dd></div>
+            <div><dt>Dados</dt><dd>D&amp;D 5e SRD API</dd></div>
+          </dl>
+          <p><a href="https://github.com/gaboel0/DandD">Abrir o repositório no GitHub</a></p>
+        </section>
+      </div>
+    </main>
+
+    <script src="../shared/bridge.js"></script>
+    <script>
+      mfe.tabs(document.querySelector('[role="tablist"]'))
+      mfe.languages(document.getElementById('langs'), 'DandD', { Vue: 35328, TypeScript: 2375, CSS: 1208, HTML: 380 })
+
+      ;(function () {
+      var API = 'https://www.dnd5eapi.co/api/2014/classes'
+      var list = document.getElementById('classes')
+      var statusEl = document.getElementById('status')
+      var search = document.getElementById('q')
+      var detail = document.getElementById('detail')
+      var classes = []
+
+      function render() {
+        var term = search.value.trim().toLowerCase()
+        var shown = classes.filter(function (c) {
+          return c.name.toLowerCase().indexOf(term) !== -1 || c.index.indexOf(term) !== -1
+        })
+        list.replaceChildren()
+        shown.forEach(function (c) {
+          var li = document.createElement('li')
+          var b = document.createElement('button')
+          b.type = 'button'
+          b.textContent = c.name
+          b.setAttribute('aria-pressed', 'false')
+          b.addEventListener('click', function () {
+            show(c, b)
+          })
+          li.appendChild(b)
+          list.appendChild(li)
+        })
+        statusEl.textContent = shown.length ? '' : 'Nenhuma classe encontrada.'
+      }
+
+      function show(c, button) {
+        Array.prototype.forEach.call(list.querySelectorAll('button'), function (b) {
+          b.setAttribute('aria-pressed', String(b === button))
+        })
+        statusEl.textContent = 'Carregando ' + c.name + '…'
+        fetch('https://www.dnd5eapi.co' + c.url)
+          .then(function (r) {
+            return r.json()
+          })
+          .then(function (d) {
+            document.getElementById('d-name').textContent = d.name
+            document.getElementById('d-hd').textContent = 'd' + d.hit_die
+            document.getElementById('d-saves').textContent = d.saving_throws
+              .map(function (s) {
+                return s.name
+              })
+              .join(', ')
+            document.getElementById('d-sub').textContent =
+              d.subclasses
+                .map(function (s) {
+                  return s.name
+                })
+                .join(', ') || 'nenhuma no SRD'
+            document.getElementById('d-cast').textContent = d.spellcasting ? 'sim' : 'não'
+            detail.hidden = false
+            statusEl.textContent = ''
+          })
+          .catch(function () {
+            statusEl.textContent = 'Não foi possível carregar os detalhes agora.'
+          })
+      }
+
+      fetch(API)
+        .then(function (r) {
+          return r.ok ? r.json() : Promise.reject()
+        })
+        .then(function (data) {
+          classes = data.results
+          render()
+        })
+        .catch(function () {
+          statusEl.textContent = 'A API de D&D não respondeu agora. Tente de novo mais tarde.'
+        })
+
+      search.addEventListener('input', render)
+      })()
+    </script>
+  </body>
+</html>

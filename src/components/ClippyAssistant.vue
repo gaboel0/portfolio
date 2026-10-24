@@ -129,7 +129,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 }
 
 .actions .btn {
-  min-height: 30px;
+  min-height: 44px;
   padding-inline: 0.8em;
   font-size: 0.8rem;
 }
@@ -137,7 +137,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 .clip {
   margin-right: 14px;
   overflow: visible;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 6px 10px var(--a-black-35));
   transform: rotate(-14deg);
   animation: float 3.6s ease-in-out infinite;
 }
@@ -151,7 +151,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 /* Thin dark outline only: the clip's inside stays see-through. */
 .wire-shadow {
-  stroke: #25254a;
+  stroke: var(--hex-25254a);
   stroke-width: 8;
 }
 
@@ -162,12 +162,12 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 .eye {
   fill: url(#eyeball);
-  stroke: #25254a;
+  stroke: var(--hex-25254a);
   stroke-width: 1.6;
 }
 
 .pupil {
-  fill: #0d0b1e;
+  fill: var(--hex-0d0b1e);
 }
 
 .eyes {
@@ -182,7 +182,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
 .brow {
   fill: none;
-  stroke: #0d0b1e;
+  stroke: var(--hex-0d0b1e);
   stroke-width: 3.6;
   stroke-linecap: round;
 }
@@ -228,11 +228,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
     transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.pop-enter-from,
-.pop-leave-to {
-  opacity: 0;
-  transform: translateY(24px) scale(0.85);
-}
 
 @media (prefers-reduced-motion: reduce) {
   .clip,

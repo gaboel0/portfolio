@@ -8,7 +8,8 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "vue-tsc -b",
-    "snapshot": "node scripts/update-snapshot.mjs"
+    "snapshot": "node scripts/update-snapshot.mjs",
+    "mfe:build": "node scripts/build-mfe-apps.mjs"
   },
   "dependencies": {
     "lucide-vue-next": "^1.0.0",

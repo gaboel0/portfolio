@@ -62,7 +62,7 @@ function reset() {
   <section id="projetos" class="section" aria-labelledby="projetos-title">
     <div class="container">
       <SectionHeading id="projetos-title">
-        Trabalho <em>selecionado</em>
+        Trabalho selecionado
         <template #lead>
           Escolhidos entre meus repositórios públicos por documentação, atividade e variedade.
         </template>
@@ -199,7 +199,7 @@ function reset() {
 
 .num {
   padding-top: 0.35em;
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   color: var(--ink-3);
   transition: color var(--dur) ease;
 }
@@ -221,7 +221,7 @@ function reset() {
   gap: 6px 12px;
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.05;
   overflow-wrap: anywhere;
@@ -248,7 +248,7 @@ function reset() {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 16px;
-  font-size: 0.64rem;
+  font-size: 0.72rem;
   color: var(--ink-3);
 }
 

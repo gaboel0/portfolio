@@ -1,14 +1,16 @@
 <script setup lang="ts">
 /**
  * A Windows 7 "Aero" window: translucent glass frame, title bar with an icon
- * and caption buttons, and an opaque client area. The caption buttons are
- * decoration only (aria-hidden, not focusable).
+ * and caption buttons, and an opaque client area. By default the caption
+ * buttons are decoration only (aria-hidden, not focusable); with `live` they
+ * become real buttons that emit minimize, maximize and close.
  */
-withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?: boolean }>(), {
-  as: 'section',
-  flush: false,
-  active: false,
-})
+withDefaults(
+  defineProps<{ title: string; as?: string; flush?: boolean; active?: boolean; live?: boolean; maximized?: boolean }>(),
+  { as: 'section', flush: false, active: false, live: false, maximized: false },
+)
+
+defineEmits<{ minimize: []; maximize: []; close: [] }>()
 </script>
 
 <template>
@@ -16,7 +18,20 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
     <header class="titlebar">
       <span class="icon" aria-hidden="true"><slot name="icon" /></span>
       <span class="caption">{{ title }}</span>
-      <span class="controls" aria-hidden="true">
+      <span v-if="live" class="controls">
+        <button type="button" class="cap cap--min" aria-label="Minimizar e voltar ao card" @click="$emit('minimize')"><b /></button>
+        <button
+          type="button"
+          class="cap cap--max"
+          :aria-label="maximized ? 'Restaurar tamanho' : 'Maximizar'"
+          :aria-pressed="maximized"
+          @click="$emit('maximize')"
+        >
+          <b />
+        </button>
+        <button type="button" class="cap cap--close" aria-label="Fechar" @click="$emit('close')"><b /></button>
+      </span>
+      <span v-else class="controls" aria-hidden="true">
         <i class="cap cap--min"><b /></i>
         <i class="cap cap--max"><b /></i>
         <i class="cap cap--close"><b /></i>
@@ -89,7 +104,7 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
   border-top-color: transparent;
   border-radius: 0 0 5px 5px;
   overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 2px var(--a-black-35);
 }
 
 .cap {
@@ -101,6 +116,27 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
   background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
   border-left: 1px solid var(--glass-edge);
   box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+button.cap {
+  padding: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  cursor: pointer;
+}
+
+button.cap:hover {
+  filter: brightness(1.18);
+}
+
+button.cap:active {
+  filter: brightness(0.85);
+}
+
+button.cap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .cap:first-child {
@@ -130,13 +166,13 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
 
 .cap--close {
   width: 42px;
-  background: linear-gradient(180deg, #e98a8a 0%, #d0414a 48%, #b3182a 52%, #d44a52 100%);
+  background: linear-gradient(180deg, var(--hex-e98a8a) 0%, var(--hex-d0414a) 48%, var(--hex-b3182a) 52%, var(--hex-d44a52) 100%);
 }
 
 .cap--close b {
   width: 10px;
   height: 10px;
-  color: #fff;
+  color: var(--hex-f6f4ff);
 }
 
 .cap--close b::before,
@@ -149,7 +185,7 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
   height: 2px;
   margin: -1px 0 0 -5.5px;
   background: currentColor;
-  filter: drop-shadow(0 0 2px rgba(80, 0, 20, 0.7));
+  filter: drop-shadow(0 0 2px var(--a-80-0-20-70));
 }
 
 .cap--close b::before {
@@ -166,7 +202,7 @@ withDefaults(defineProps<{ title: string; as?: string; flush?: boolean; active?:
   border-radius: 2px;
   background: var(--win-body);
   color: var(--ink);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 1px 2px var(--a-black-18);
 }
 
 .client:not(.client--flush) {

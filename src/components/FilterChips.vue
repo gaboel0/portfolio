@@ -30,12 +30,13 @@ const model = defineModel<string>({ required: true })
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
   background: transparent;
   font-size: 0.85rem;
+  white-space: nowrap;
   color: var(--ink-2);
   transition:
     border-color var(--dur-fast) ease,
@@ -55,7 +56,7 @@ const model = defineModel<string>({ required: true })
 }
 
 .count {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   opacity: 0.6;
 }
 

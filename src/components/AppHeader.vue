@@ -21,7 +21,7 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 <template>
   <header class="taskbar">
     <div class="bar">
-      <a href="#inicio" class="signature" aria-label="Gabriel Figueiredo — voltar ao início">
+      <a href="#inicio" class="signature" aria-label="Gabriel Figueiredo, voltar ao início">
         <span class="orb" aria-hidden="true" />
       </a>
 
@@ -56,26 +56,25 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 
 <style scoped>
 .taskbar {
-  --bar-bg: rgba(18, 16, 48, 0.78);
-  --bar-ink: #f1efff;
+  --bar-bg: var(--a-18-16-48-78);
+  --bar-ink: var(--hex-f1efff);
   position: fixed;
   inset: auto 0 0;
   z-index: 50;
   height: var(--taskbar-h);
-  border-top: 1px solid rgba(190, 178, 255, 0.45);
+  border-top: 1px solid var(--a-190-178-255-45);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0) 50%, rgba(143, 128, 255, 0.12) 100%),
+    linear-gradient(180deg, var(--a-white-30) 0%, var(--a-white-7) 48%, var(--a-white-0) 50%, var(--a-143-128-255-12) 100%),
     var(--bar-bg);
   backdrop-filter: blur(16px) saturate(1.6);
   -webkit-backdrop-filter: blur(16px) saturate(1.6);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 -6px 24px rgba(10, 8, 40, 0.35);
+    inset 0 1px 0 var(--a-white-35);
   color: var(--bar-ink);
 }
 
 :global(:root[data-theme='light']) .taskbar {
-  --bar-bg: rgba(66, 58, 150, 0.7);
+  --bar-bg: var(--a-66-58-150-70);
 }
 
 .bar {
@@ -97,7 +96,7 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 }
 
 .signature:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--a-white-14);
 }
 
 .orb {
@@ -107,14 +106,14 @@ const date = () => now.value.toLocaleDateString('pt-BR')
   height: 38px;
   margin-top: -6px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--a-white-60);
   background:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 45%),
-    radial-gradient(circle at 63% 38%, #05040a 50%, var(--orb-ring) 55%, #3a2d9c 100%);
+    radial-gradient(ellipse at 50% 18%, var(--a-white-70) 0%, var(--a-white-0) 45%),
+    radial-gradient(circle at 63% 38%, var(--hex-05040a) 50%, var(--orb-ring) 55%, var(--hex-3a2d9c) 100%);
   box-shadow:
-    0 0 14px rgba(143, 128, 255, 0.85),
-    inset 0 -7px 10px rgba(0, 0, 0, 0.55),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    0 0 14px var(--a-143-128-255-85),
+    inset 0 -7px 10px var(--a-black-55),
+    inset 0 1px 1px var(--a-white-80);
   transition:
     box-shadow var(--dur) ease,
     transform var(--dur) var(--ease-out);
@@ -133,11 +132,10 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 }
 
 .signature:hover .orb {
-  transform: scale(1.06);
   box-shadow:
-    0 0 22px rgba(179, 169, 255, 1),
-    inset 0 -7px 10px rgba(0, 0, 0, 0.45),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    0 0 22px var(--a-179-169-255-100),
+    inset 0 -7px 10px var(--a-black-45),
+    inset 0 1px 1px var(--a-white-90);
 }
 
 /* Pinned item -------------------------------------------------------------- */
@@ -147,10 +145,10 @@ const date = () => now.value.toLocaleDateString('pt-BR')
   gap: 8px;
   height: 34px;
   padding: 0 14px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid var(--a-white-28);
   border-radius: 3px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.12));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(180deg, var(--a-white-28), var(--a-white-6) 50%, var(--a-white-12));
+  box-shadow: inset 0 1px 0 var(--a-white-40);
   font-size: 0.85rem;
   transition:
     box-shadow var(--dur-fast) ease,
@@ -158,10 +156,10 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 }
 
 .task:hover {
-  border-color: rgba(214, 205, 255, 0.8);
+  border-color: var(--a-214-205-255-80);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 0 12px rgba(143, 128, 255, 0.6);
+    inset 0 1px 0 var(--a-white-50),
+    0 0 12px var(--a-143-128-255-60);
 }
 
 .task svg {
@@ -194,8 +192,8 @@ const date = () => now.value.toLocaleDateString('pt-BR')
 }
 
 .tray-btn:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.05));
+  border-color: var(--a-white-35);
+  background: linear-gradient(180deg, var(--a-white-28), var(--a-white-5));
 }
 
 .tray-btn svg {
@@ -210,7 +208,7 @@ const date = () => now.value.toLocaleDateString('pt-BR')
   font-size: 0.72rem;
   line-height: 1.25;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 1px var(--a-black-50);
 }
 
 /* "Show desktop" sliver at the far right. */
@@ -218,20 +216,20 @@ const date = () => now.value.toLocaleDateString('pt-BR')
   align-self: stretch;
   width: 12px;
   margin-left: 4px;
-  border-left: 1px solid rgba(255, 255, 255, 0.4);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.05));
+  border-left: 1px solid var(--a-white-40);
+  background: linear-gradient(180deg, var(--a-white-28), var(--a-white-5));
   transition: background-color var(--dur-fast) ease;
 }
 
 .peek:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--a-white-40);
 }
 
 .signature:focus-visible,
 .task:focus-visible,
 .tray-btn:focus-visible,
 .peek:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--hex-f6f4ff);
   outline-offset: -3px;
 }
 
@@ -243,15 +241,6 @@ const date = () => now.value.toLocaleDateString('pt-BR')
     opacity 220ms ease;
 }
 
-.swap-enter-from {
-  opacity: 0;
-  transform: translateY(18px) rotate(-90deg) scale(0.5);
-}
-
-.swap-leave-to {
-  opacity: 0;
-  transform: translateY(-18px) rotate(90deg) scale(0.5);
-}
 
 @media (max-width: 480px) {
   .task span {

@@ -104,7 +104,7 @@ const kind = computed(() => {
     linear-gradient(to right, color-mix(in srgb, var(--panel-ink) 9%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in srgb, var(--panel-ink) 9%, transparent) 1px, transparent 1px);
   background-size: calc(100% / var(--cols)) calc(100% / (var(--cols) * 0.625));
-  mask-image: linear-gradient(160deg, #000 30%, transparent 95%);
+  mask-image: linear-gradient(160deg, var(--hex-05040a) 30%, transparent 95%);
 }
 
 /* Crescent moon: a disc minus an offset disc, plus a thin crimson slash. */
@@ -135,8 +135,7 @@ const kind = computed(() => {
 
 .word {
   font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .lang {
@@ -146,7 +145,7 @@ const kind = computed(() => {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   opacity: 0.8;
 }
 

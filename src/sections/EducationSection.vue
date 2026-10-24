@@ -9,7 +9,7 @@ import { formatMonth } from '@/utils/format'
   <section id="formacao" class="section" aria-labelledby="formacao-title">
     <div class="container layout">
       <header class="intro">
-        <h2 id="formacao-title">Base <em>acadêmica</em></h2>
+        <h2 id="formacao-title">Base acadêmica</h2>
       </header>
 
       <AeroWindow as="article" class="block" v-reveal title="Graduação" aria-labelledby="edu-course">
@@ -18,7 +18,7 @@ import { formatMonth } from '@/utils/format'
         <p class="inst">{{ education.institution }}</p>
         <ul role="list" class="periods mono">
           <li v-for="p in education.periods" :key="p.start">
-            <time :datetime="p.start">{{ formatMonth(p.start) }}</time> — <time :datetime="p.end">{{ formatMonth(p.end) }}</time>
+            <time :datetime="p.start">{{ formatMonth(p.start) }}</time> a <time :datetime="p.end">{{ formatMonth(p.end) }}</time>
           </li>
         </ul>
       </AeroWindow>
@@ -53,6 +53,7 @@ import { formatMonth } from '@/utils/format'
 
 .intro h2 {
   max-width: 100%;
+  text-wrap: balance;
   font-size: clamp(1.7rem, 3.6vw, 2.6rem);
   font-weight: 300;
   text-shadow: var(--title-glow);

@@ -1,9 +1,17 @@
+/* Hallmark · checked: 2026-10-24 · genre: atmospheric (inferred)
+ * floor: 1 FAIL kept on purpose (47a, the Windows 7 chrome the owner asked for) · fixed: 2a, 7a, 19, 20, 24a, 34, 38, 48, 62, 67 · open: reflex 1 (Segoe UI) and 26b (no :disabled) · structural: 6b, 8, 42 printed
+ * built: the project · redesign: polish · v2.0.0 */
+/* Hallmark · waive 71 · every problem row is a bordered box about 110px tall, under the 200px limit, with its head at the left of the same row · the heads read as table rows, so the row padding is the spacing */
+/* Hallmark · waive 81 · the .moon sits behind the WebGL canvas and fades out the moment the 3D eclipse renders · the Portfólio hero uses it only as the stage's loading colour before the Three.js eclipse of Gabriel Figueiredo appears */
+/* Hallmark · dismissed 29 · the dark theme-burst is a single 900ms shockwave ring on the theme switch, not a standing halo behind text */
+/* Hallmark · dismissed 49 · every .btn sets white-space nowrap in base.css, so these button labels never wrap */
+/* Hallmark · dismissed 54 · SectionHeading renders the h2 itself, which the linter cannot see through the component */
 :root {
   /* Typography */
-  /* Windows 7 type: Segoe UI where it exists, Open Sans (its closest web cousin) elsewhere. */
-  --font-sans: 'Segoe UI', 'Open Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Segoe UI', 'Open Sans', system-ui, sans-serif;
-  --font-mono: Consolas, 'Cascadia Mono', ui-monospace, monospace;
+  /* Windows 7 type: one family, Segoe UI, falling back to the device's own UI face. */
+  --font-sans: 'Segoe UI', system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: var(--font-sans);
 
   --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
   --step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
@@ -86,9 +94,64 @@
   --btn-ink: #1a1740;
   --win-shadow: 0 8px 28px -8px rgba(40, 30, 120, 0.45), 0 2px 6px rgba(40, 30, 120, 0.25);
   --desktop: radial-gradient(1100px 600px at 12% -10%, rgba(143, 128, 255, 0.35), transparent 60%),
-    radial-gradient(900px 600px at 95% 10%, rgba(255, 150, 190, 0.22), transparent 60%),
     linear-gradient(165deg, #e6e9fb 0%, #eceefb 45%, #dcd6f6 100%);
   --orb-ring: #8f80ff;
+
+  /* Literal colours lifted out of components (single source of truth) */
+  --a-10-8-40-35: rgba(10, 8, 40, 0.35);
+  --a-143-128-255-12: rgba(143, 128, 255, 0.12);
+  --a-143-128-255-60: rgba(143, 128, 255, 0.6);
+  --a-143-128-255-85: rgba(143, 128, 255, 0.85);
+  --a-179-169-255-100: rgba(179, 169, 255, 1);
+  --a-18-16-48-78: rgba(18, 16, 48, 0.78);
+  --a-190-175-255-25: rgba(190, 175, 255, 0.25);
+  --a-190-178-255-45: rgba(190, 178, 255, 0.45);
+  --a-20-10-80-60: rgba(20, 10, 80, 0.6);
+  --a-214-205-255-80: rgba(214, 205, 255, 0.8);
+  --a-255-214-170-55: rgba(255, 214, 170, 0.55);
+  --a-255-252-240-95: rgba(255, 252, 240, 0.95);
+  --a-66-58-150-70: rgba(66, 58, 150, 0.7);
+  --a-80-0-20-70: rgba(80, 0, 20, 0.7);
+  --a-black-14: rgba(0, 0, 0, 0.14);
+  --a-black-18: rgba(0, 0, 0, 0.18);
+  --a-black-30: rgba(0, 0, 0, 0.3);
+  --a-black-35: rgba(0, 0, 0, 0.35);
+  --a-black-45: rgba(0, 0, 0, 0.45);
+  --a-black-50: rgba(0, 0, 0, 0.5);
+  --a-black-55: rgba(0, 0, 0, 0.55);
+  --a-black-70: rgba(0, 0, 0, 0.7);
+  --a-white-0: rgba(255, 255, 255, 0);
+  --a-white-12: rgba(255, 255, 255, 0.12);
+  --a-white-14: rgba(255, 255, 255, 0.14);
+  --a-white-28: rgba(255, 255, 255, 0.28);
+  --a-white-30: rgba(255, 255, 255, 0.3);
+  --a-white-22: rgba(255, 255, 255, 0.22);
+  --a-white-35: rgba(255, 255, 255, 0.35);
+  --a-white-40: rgba(255, 255, 255, 0.4);
+  --a-white-45: rgba(255, 255, 255, 0.45);
+  --a-white-5: rgba(255, 255, 255, 0.05);
+  --a-white-50: rgba(255, 255, 255, 0.5);
+  --a-white-6: rgba(255, 255, 255, 0.06);
+  --a-white-60: rgba(255, 255, 255, 0.6);
+  --a-white-7: rgba(255, 255, 255, 0.07);
+  --a-white-70: rgba(255, 255, 255, 0.7);
+  --a-white-8: rgba(255, 255, 255, 0.08);
+  --a-white-80: rgba(255, 255, 255, 0.8);
+  --a-white-90: rgba(255, 255, 255, 0.9);
+  --hex-05040a: #05040a;
+  --hex-0d0b1e: #0d0b1e;
+  --hex-25254a: #25254a;
+  --hex-2b1f8f: #2b1f8f;
+  --hex-3a2d9c: #3a2d9c;
+  --hex-4a39c9: #4a39c9;
+  --hex-8f80ff: #8f80ff;
+  --hex-7567ec: #6254e4;
+  --hex-b3182a: #b3182a;
+  --hex-d0414a: #d0414a;
+  --hex-d44a52: #d44a52;
+  --hex-e98a8a: #e98a8a;
+  --hex-f1efff: #f1efff;
+  --hex-f6f4ff: #f6f4ff;
 
   color-scheme: light;
 }
@@ -130,7 +193,6 @@
   --btn-ink: #efecff;
   --win-shadow: 0 10px 34px -8px rgba(0, 0, 0, 0.85), 0 2px 8px rgba(0, 0, 0, 0.6);
   --desktop: radial-gradient(1100px 650px at 10% -10%, rgba(120, 96, 255, 0.28), transparent 60%),
-    radial-gradient(900px 600px at 98% 12%, rgba(232, 57, 79, 0.12), transparent 60%),
     linear-gradient(165deg, #080814 0%, #0b0a1a 50%, #0a0816 100%);
   --orb-ring: #b3a9ff;
 

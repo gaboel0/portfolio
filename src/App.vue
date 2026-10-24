@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
 import ClippyAssistant from '@/components/ClippyAssistant.vue'
+import ProjectModal from '@/components/ProjectModal.vue'
 import { useGithub } from '@/composables/useGithub'
 import AboutSection from '@/sections/AboutSection.vue'
 import ContactSection from '@/sections/ContactSection.vue'
@@ -29,6 +30,7 @@ onMounted(() => load())
     <EducationSection />
     <ContactSection />
   </main>
+  <ProjectModal />
   <ClippyAssistant />
 </template>
 

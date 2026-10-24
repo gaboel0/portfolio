@@ -5,9 +5,14 @@ import AeroWindow from '@/components/AeroWindow.vue'
 import BrandIcon from '@/components/BrandIcon.vue'
 import HeroCanvas from '@/components/HeroCanvas.vue'
 import { useAssistant } from '@/composables/useAssistant'
+import { useDraggableWindow } from '@/composables/useDraggableWindow'
 import { person } from '@/data/profile'
 
 const stage = ref<InstanceType<typeof HeroCanvas> | null>(null)
+const welcome = ref<InstanceType<typeof AeroWindow> | null>(null)
+
+// Only this window can be moved around the desktop.
+useDraggableWindow(welcome)
 
 const { show } = useAssistant()
 const MOON_CLICKS = 5
@@ -67,12 +72,12 @@ function onSkyClick(e: MouseEvent) {
         </li>
       </ul>
 
-      <AeroWindow as="div" class="welcome" title="Gabriel Figueiredo — Portfólio" active>
+      <AeroWindow ref="welcome" as="div" class="welcome" title="Gabriel Figueiredo: Portfólio" active>
         <template #icon><span class="mini-orb" /></template>
 
         <div class="body">
           <h1 id="hero-title" class="name">
-            Gabriel <em>Figueiredo</em>
+            Gabriel Figueiredo
             <span class="sr-only">dos Santos</span>
           </h1>
           <p class="role">Desenvolvedor de software, front-end</p>
@@ -175,7 +180,7 @@ function onSkyClick(e: MouseEvent) {
   background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
-    0 3px 8px rgba(0, 0, 0, 0.35);
+    0 3px 8px var(--a-black-35);
   color: var(--btn-ink);
 }
 
@@ -196,11 +201,33 @@ function onSkyClick(e: MouseEvent) {
   justify-self: start;
 }
 
+.welcome :deep(.drag-handle) {
+  cursor: grab;
+  touch-action: none;
+}
+
+.welcome :deep(.drag-handle:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.welcome.is-dragging {
+  z-index: 5;
+  box-shadow:
+    inset 0 0 0 1px var(--glass-hi),
+    0 0 0 1px var(--accent),
+    0 22px 48px -10px var(--a-black-70);
+}
+
+.welcome.is-dragging :deep(.drag-handle) {
+  cursor: grabbing;
+}
+
 .mini-orb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: radial-gradient(circle at 63% 38%, #05040a 50%, var(--orb-ring) 58%);
+  background: radial-gradient(circle at 63% 38%, var(--hex-05040a) 50%, var(--orb-ring) 58%);
   box-shadow: 0 0 6px var(--orb-ring);
 }
 
@@ -213,6 +240,8 @@ function onSkyClick(e: MouseEvent) {
 .name {
   font-size: clamp(2.2rem, 5.6vw, 3.8rem);
   font-weight: 600;
+  overflow-wrap: break-word;
+  min-width: 0;
   line-height: 1;
 }
 

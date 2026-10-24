@@ -18,7 +18,7 @@ export interface RepoCuration {
   /** Manual nudge for featured ranking (documentation quality, scope). */
   weight?: number
   /** Overrides the 3D cover emblem picked from the stack. */
-  emblem?: 'd20'
+  emblem?: 'd20' | 'can'
 }
 
 export type RepoStatus = 'active' | 'empty' | 'profile' | 'fork' | 'archived'

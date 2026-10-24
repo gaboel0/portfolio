@@ -17,8 +17,8 @@ defineProps<{ id?: string }>()
 .heading {
   display: grid;
   gap: var(--space-3);
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(90deg, var(--glass-edge), transparent 70%) 1;
 }
@@ -31,9 +31,6 @@ defineProps<{ id?: string }>()
   text-shadow: var(--title-glow);
 }
 
-.title :deep(em) {
-  font-weight: 600;
-}
 
 .lead {
   max-width: 54ch;

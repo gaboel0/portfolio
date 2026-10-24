@@ -3,23 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gabriel Figueiredo — Desenvolvedor de software</title>
+    <title>Gabriel Figueiredo: Desenvolvedor de software</title>
     <meta
       name="description"
       content="Portfólio de Gabriel dos Santos Figueiredo, desenvolvedor de software em Marília, SP. Resolvo problemas de interface em plataformas web e mobile."
     />
     <meta name="author" content="Gabriel dos Santos Figueiredo" />
-    <meta property="og:title" content="Gabriel Figueiredo — Desenvolvedor de software" />
+    <meta property="og:title" content="Gabriel Figueiredo: Desenvolvedor de software" />
     <meta property="og:description" content="Projetos, experiência e contato." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0a0a11" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://api.github.com" crossorigin />
     <script>
       // Apply the saved theme before first paint to avoid a flash.
@@ -27,6 +21,7 @@
         var t = localStorage.getItem('portfolio-theme')
         if (t !== 'light' && t !== 'dark') t = 'dark'
         document.documentElement.dataset.theme = t
+        document.documentElement.classList.add('js')
       } catch (e) {}
     </script>
   </head>

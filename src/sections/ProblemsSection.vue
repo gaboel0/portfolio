@@ -11,11 +11,11 @@ const repoUrl = (repo: string) => `${person.github}/${repo}`
   <section id="problemas" class="section" aria-labelledby="problemas-title">
     <div class="container">
       <SectionHeading id="problemas-title">
-        Problemas que <em>resolvo</em>
+        Problemas que resolvo
         <template #lead>O que eu faço com as ferramentas, no trabalho e nos projetos públicos.</template>
       </SectionHeading>
 
-      <AeroWindow as="div" flush title="Painel de controle — Problemas">
+      <AeroWindow as="div" flush title="Painel de controle: Problemas">
         <template #icon><Settings /></template>
       <ol class="list" role="list">
         <li v-for="(item, i) in problems" :key="item.title" v-reveal="Math.min(i, 4) * 50" class="item">
@@ -79,8 +79,7 @@ const repoUrl = (repo: string) => `${person.github}/${repo}`
 
 .proof {
   width: fit-content;
-  font-size: 0.64rem;
-  text-transform: uppercase;
+  font-size: 0.72rem;
   color: var(--ink-3);
 }
 

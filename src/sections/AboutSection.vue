@@ -21,7 +21,7 @@ const avatarFailed = ref(false)
   <section id="sobre" class="section" aria-labelledby="sobre-title">
     <div class="container">
       <SectionHeading id="sobre-title">
-        Front-end, <em>do Figma</em> ao código
+        Front-end, do Figma ao código
       </SectionHeading>
 
       <AeroWindow title="Sobre mim" as="div">
@@ -101,9 +101,8 @@ const avatarFailed = ref(false)
   place-items: center;
   height: 100%;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 6rem;
-  text-transform: uppercase;
   color: var(--ink-3);
 }
 

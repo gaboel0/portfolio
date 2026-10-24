@@ -1,0 +1,1 @@
+function a(t,n){let o=n.filter(e=>e.projectId===t),s=o.filter(e=>e.status===`concluída`).length,r=o.length;return{doneTasks:s,totalTasks:r,progress:r?Math.round(s/r*100):0}}export{a as t};

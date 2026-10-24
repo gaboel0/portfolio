@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus CRM</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../shared/aero.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>Nexus CRM</h1>
+        <p>Painel de gestão de projetos e tarefas feito com Angular e Tailwind CSS.</p>
+        <div class="meta">
+          <span class="tag">Angular 22</span>
+          <span class="tag">TypeScript 6</span>
+          <span class="tag">Tailwind CSS 4</span>
+          <span class="tag">Three.js</span>
+          <span class="tag">Vitest 5</span>
+        </div>
+      </header>
+
+      <div>
+        <div role="tablist" aria-label="Seções do projeto">
+          <button role="tab" id="t-overview" aria-controls="p-overview">Visão geral</button>
+          <button role="tab" id="t-structure" aria-controls="p-structure">Estrutura</button>
+          <button role="tab" id="t-run" aria-controls="p-run">Como rodar</button>
+        </div>
+
+        <section role="tabpanel" id="p-overview" aria-labelledby="t-overview">
+          <h2>O que o projeto faz</h2>
+          <ul class="list">
+            <li>Tela de login com uma cidade 3D animada em Three.js ao fundo.</li>
+            <li>Painel inicial com indicadores, quadro de tarefas, detalhes e comentários.</li>
+            <li>Lista de projetos com progresso e página de detalhes de cada projeto.</li>
+            <li>Tema claro e escuro, alternados com um clique.</li>
+            <li>Carregamento com skeleton, sem telas em branco enquanto os dados chegam.</li>
+            <li>Navegação por teclado e layout responsivo a partir de 320 px.</li>
+          </ul>
+          <p class="note">Os dados do projeto são simulados (mocks): ainda não há backend.</p>
+          <div class="langs" id="langs" aria-live="polite"></div>
+        </section>
+
+        <section role="tabpanel" id="p-structure" aria-labelledby="t-structure" hidden>
+          <h2>Organização do código</h2>
+          <pre>src/app/
+├── core/       serviços, guards, modelos e mocks
+├── shared/     componentes de UI reutilizáveis
+└── features/   telas por domínio
+    ├── auth/       login + cena 3D
+    ├── home/       painel e tarefas
+    └── projects/   lista e detalhes de projetos</pre>
+          <p>O repositório também traz documentos de arquitetura, design system e guia de desenvolvimento.</p>
+        </section>
+
+        <section role="tabpanel" id="p-run" aria-labelledby="t-run" hidden>
+          <h2>Rodando localmente</h2>
+          <p>Pré-requisito: Node.js 22 ou superior.</p>
+          <pre>git clone https://github.com/gaboel0/Nexus-CRM.git
+cd Nexus-CRM
+npm install
+npm start</pre>
+          <p>O README lista ainda <code>npm run build</code>, os testes unitários com Vitest e a checagem de formatação com Prettier.</p>
+          <p><a href="https://github.com/gaboel0/Nexus-CRM">Abrir o repositório no GitHub</a></p>
+        </section>
+      </div>
+    </main>
+
+    <script src="../shared/bridge.js"></script>
+    <script>
+      mfe.tabs(document.querySelector('[role="tablist"]'))
+      mfe.languages(document.getElementById('langs'), 'Nexus-CRM', { TypeScript: 208191, HTML: 42884, CSS: 2777 })
+    </script>
+  </body>
+</html>

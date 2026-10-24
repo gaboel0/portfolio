@@ -1,0 +1,311 @@
+/* Shared look of every micro-frontend: the portfolio's Aero tokens, in both themes. */
+:root {
+  --font: 'Segoe UI', system-ui, sans-serif;
+  --bg: #0f0e1c;
+  --surface: #15142a;
+  --ink: #ece9ff;
+  --ink-2: #b9b6d0;
+  --ink-3: #8f8cab;
+  --line: #2d2b52;
+  --accent: #8f80ff;
+  --accent-ink: #b3a9ff;
+  --btn-top: #4a4390;
+  --btn-bot: #1d1a45;
+  --btn-edge: #0b0a1e;
+  --hi: rgba(255, 255, 255, 0.16);
+  --focus: #b3a9ff;
+  --lang-typescript: #3178c6;
+  --lang-html: #e34c26;
+  --lang-scss: #c6538c;
+  --lang-css: #663399;
+  --lang-javascript: #f1e05a;
+  --lang-vue: #41b883;
+  --lang-other: #8b89a3;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #fbfbfe;
+  --surface: #f1f0f8;
+  --ink: #1a1740;
+  --ink-2: #423f58;
+  --ink-3: #625f78;
+  --line: #d9d7e4;
+  --accent: #5a48e0;
+  --accent-ink: #4a39c9;
+  --btn-top: #fdfdff;
+  --btn-bot: #d9ddf2;
+  --btn-edge: #7d78b0;
+  --hi: rgba(255, 255, 255, 0.8);
+  --focus: #5a48e0;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 0.95rem/1.6 var(--font);
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+a {
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.page {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 24px 24px 40px;
+}
+
+header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+header p {
+  max-width: 62ch;
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag {
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+}
+
+/* Tabs, like a Windows 7 property sheet. */
+[role='tablist'] {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+[role='tab'] {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  cursor: pointer;
+}
+
+[role='tab']:hover {
+  background: var(--surface);
+}
+
+[role='tab'][aria-selected='true'] {
+  margin-bottom: -1px;
+  border-color: var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: inset 0 2px 0 var(--accent);
+}
+
+[role='tabpanel'] {
+  display: grid;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+[role='tabpanel'][hidden] {
+  display: none;
+}
+
+h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  display: flex;
+  gap: 12px;
+}
+
+.list li::before {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 2px;
+  margin-top: 0.8em;
+  background: var(--accent);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.facts div {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+.facts dt {
+  color: var(--ink-3);
+  font-size: 0.8rem;
+}
+
+.facts dd {
+  font-weight: 600;
+}
+
+pre,
+code {
+  font-family: Consolas, 'Cascadia Mono', monospace;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  font-size: 0.85rem;
+}
+
+.note {
+  padding: 8px 12px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 0.88rem;
+}
+
+/* Language bar, drawn from the GitHub languages API. */
+.langs {
+  display: grid;
+  gap: 8px;
+}
+
+.bar {
+  display: flex;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--line);
+}
+
+.bar span {
+  min-width: 2px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-2);
+  font-size: 0.85rem;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 2px;
+}
+
+input[type='search'] {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--ink-3);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.classes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.classes button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.classes button:hover,
+.classes button[aria-pressed='true'] {
+  border-color: var(--accent);
+}
+
+.empty {
+  color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

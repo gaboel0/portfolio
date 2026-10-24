@@ -13,6 +13,34 @@ npm run preview    # serve o build de produção
 npm run snapshot   # atualiza o snapshot offline a partir da API do GitHub
 ```
 
+## Micro-front-ends dos projetos
+
+Ao abrir um projeto (Nexus-CRM, DandD e sodacan), o card se expande numa janela com duas visões:
+
+- **Projeto rodando**: o próprio app do repositório, compilado e hospedado em `public/mfe/apps/<nome>/` e
+  carregado num `iframe`. Navegação, rotas e estado funcionam de verdade (por exemplo, o login do Nexus-CRM
+  com as credenciais de demonstração do README e o painel completo).
+- **Apresentação**: um mini-app em `public/mfe/<nome>/`, num sandbox mais estrito, que conversa com o
+  portfólio por `postMessage` (tema e abertura de links externos, em `public/mfe/shared/bridge.js`).
+
+Atualizar os apps hospedados depois de mudar um projeto:
+
+```bash
+npm run mfe:build            # recompila os três a partir do GitHub
+npm run mfe:build -- dandd   # ou só um
+```
+
+O script clona cada repositório numa pasta temporária, instala com `--ignore-scripts`, compila com o
+caminho-base certo e copia só o resultado para `public/mfe/apps/`.
+
+**Segurança:** o app rodando usa `sandbox="allow-scripts allow-same-origin"` para que o roteador e o
+armazenamento funcionem. Com isso ele é da mesma origem do portfólio, então só hospede código seu ou de
+confiança. A apresentação roda sem `allow-same-origin`.
+
+Para um projeto novo: registre o repositório em `src/data/microfrontends.ts`, crie a apresentação em
+`public/mfe/<nome>/index.html` (use `shared/aero.css` e `bridge.js`) e, se quiser o app rodando, inclua-o
+na lista de `scripts/build-mfe-apps.mjs`.
+
 ## Estrutura
 
 ```text

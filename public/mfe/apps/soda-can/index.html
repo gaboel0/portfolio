@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <div class="produto">
+                <div class="lata" style="--url: url(images/coca.jpg)"></div>
+                <div class="lata" style="--url: url(images/fanta.jpg)"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const produto = document.querySelector('.banner .produto');
+        const body = document.querySelector('body');
+
+        produto.addEventListener('mouseenter', () => {
+            body.classList.add('hover');
+        });
+
+        produto.addEventListener('mouseleave', () => {
+            body.classList.remove('hover');
+        });
+    </script>
+</body>
+</html>

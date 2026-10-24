@@ -45,7 +45,7 @@ input {
   width: 100%;
   min-height: 46px;
   padding: 0 44px 0 42px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--ink-3);
   border-radius: var(--radius-m);
   background: var(--bg-elev);
   transition: border-color var(--dur-fast) ease;
@@ -56,7 +56,7 @@ input::placeholder {
 }
 
 input:hover {
-  border-color: var(--ink-3);
+  border-color: var(--ink-2);
 }
 
 input:focus-visible {

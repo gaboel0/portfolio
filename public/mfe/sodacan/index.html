@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sodacan</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../shared/aero.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>Soda Can</h1>
+        <p>Uma animação fluida e simples com duas bebidas diferentes, feita com HTML e CSS.</p>
+        <div class="meta">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript puro</span>
+          <span class="tag">Sem dependências</span>
+        </div>
+      </header>
+
+      <div>
+        <div role="tablist" aria-label="Seções do projeto">
+          <button role="tab" id="t-overview" aria-controls="p-overview">Visão geral</button>
+          <button role="tab" id="t-how" aria-controls="p-how">Como funciona</button>
+          <button role="tab" id="t-run" aria-controls="p-run">Como rodar</button>
+        </div>
+
+        <section role="tabpanel" id="p-overview" aria-labelledby="t-overview">
+          <h2>O que o projeto faz</h2>
+          <ul class="list">
+            <li>Mostra duas latas lado a lado, cada uma com a imagem de uma bebida diferente.</li>
+            <li>Ao passar o mouse sobre as latas, a animação é disparada.</li>
+            <li>É um projeto pequeno e estático: uma página, uma folha de estilo e as imagens.</li>
+          </ul>
+          <p class="note">Na aba "Projeto rodando" você vê a animação em ação: passe o mouse sobre as latas.</p>
+          <div class="langs" id="langs" aria-live="polite"></div>
+        </section>
+
+        <section role="tabpanel" id="p-how" aria-labelledby="t-how" hidden>
+          <h2>Como a animação é montada</h2>
+          <ul class="list">
+            <li>Cada lata é um elemento <code>.lata</code>, e a imagem da bebida entra por uma variável CSS (<code>--url</code>).</li>
+            <li>Um pequeno script escuta <code>mouseenter</code> e <code>mouseleave</code> no bloco das latas e liga ou desliga a classe <code>hover</code> no <code>body</code>.</li>
+            <li>O CSS reage a essa classe para animar as latas, sem nenhuma biblioteca.</li>
+          </ul>
+          <pre>produto.addEventListener('mouseenter', () =&gt; body.classList.add('hover'))
+produto.addEventListener('mouseleave', () =&gt; body.classList.remove('hover'))</pre>
+        </section>
+
+        <section role="tabpanel" id="p-run" aria-labelledby="t-run" hidden>
+          <h2>Rodando localmente</h2>
+          <p>Por ser uma página estática, não há instalação: basta abrir o <code>index.html</code> do repositório no navegador.</p>
+          <p><a href="https://github.com/gaboel0/sodacan">Abrir o repositório no GitHub</a></p>
+        </section>
+      </div>
+    </main>
+
+    <script src="../shared/bridge.js"></script>
+    <script>
+      mfe.tabs(document.querySelector('[role="tablist"]'))
+      mfe.languages(document.getElementById('langs'), 'sodacan', { CSS: 1487, HTML: 907 })
+    </script>
+  </body>
+</html>

@@ -26,6 +26,7 @@ import {
   WebGLRenderer,
   WireframeGeometry,
   BoxGeometry,
+  CylinderGeometry,
   type Object3D,
 } from 'three'
 
@@ -35,7 +36,7 @@ import {
  * per card is not an option). Each cover gets its own scene and camera and is
  * rendered into its own rectangle with scissor/viewport.
  */
-export type CoverKind = 'ico' | 'knot' | 'orbit' | 'rings' | 'sphere' | 'dodeca' | 'box' | 'd20'
+export type CoverKind = 'ico' | 'knot' | 'orbit' | 'rings' | 'sphere' | 'dodeca' | 'box' | 'd20' | 'can'
 
 export interface CoverStage {
   refresh(): void
@@ -176,6 +177,24 @@ function buildD20(g: Group) {
 function buildEmblem(kind: CoverKind, seed: number): Group {
   const g = new Group()
   switch (kind) {
+    case 'can': {
+      // A soda can: ribbed body, two rims and a pull tab on top.
+      const body = new CylinderGeometry(0.38, 0.38, 1.0, 24, 1)
+      g.add(lines(body, ACCENT, 0.6, true))
+      for (const y of [-0.5, 0.5]) {
+        const rim = lines(new TorusGeometry(0.38, 0.014, 6, 32), PALE, 0.9)
+        rim.rotation.x = Math.PI / 2
+        rim.position.y = y
+        g.add(rim)
+      }
+      const tab = lines(new TorusGeometry(0.1, 0.016, 6, 20), CRIMSON, 0.95)
+      tab.rotation.x = Math.PI / 2
+      tab.position.set(0.06, 0.52, 0)
+      g.add(tab)
+      const label = new Float32Array([0, 0.5, 0, 0.12, 0.5, 0, -0.12, 0.5, 0])
+      g.add(dots(label, CRIMSON, 5))
+      break
+    }
     case 'd20': {
       buildD20(g)
       break

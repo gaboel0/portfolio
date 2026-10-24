@@ -10,7 +10,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
   <section id="experiencia" class="section" aria-labelledby="experiencia-title">
     <div class="container">
       <SectionHeading id="experiencia-title">
-        Trajetória <em>profissional</em>
+        Trajetória profissional
       </SectionHeading>
 
       <ol role="list" class="timeline">
@@ -18,7 +18,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
           <div class="when">
             <p class="period mono">
               <time :datetime="role.start">{{ formatMonth(role.start) }}</time>
-              —
+              a
               <time v-if="role.end" :datetime="role.end">{{ formatMonth(role.end) }}</time>
               <span v-else>presente</span>
             </p>
@@ -28,7 +28,7 @@ import { formatDuration, formatMonth } from '@/utils/format'
 
           <span class="node" aria-hidden="true" />
 
-          <AeroWindow as="div" class="card" :title="`${role.company} — ${role.title}`" :active="role.current">
+          <AeroWindow as="div" class="card" :title="`${role.company}: ${role.title}`" :active="role.current">
             <template #icon><Briefcase /></template>
             <div class="card__body">
             <header>
@@ -103,16 +103,14 @@ import { formatDuration, formatMonth } from '@/utils/format'
 
 .duration {
   font-size: 0.75rem;
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 
 .badge {
   padding: 0.1em 0.55em;
   background: var(--accent);
   color: var(--on-accent);
-  font-size: 0.66rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
   border-radius: var(--radius-s);
 }
 
@@ -134,7 +132,6 @@ import { formatDuration, formatMonth } from '@/utils/format'
   margin-top: 4px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  text-transform: uppercase;
   color: var(--accent-ink);
 }
 

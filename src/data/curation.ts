@@ -38,8 +38,8 @@ export const curation: Record<string, RepoCuration> = {
   'smart-fish-smaqjt': {
     summary: 'Aplicativo híbrido desenvolvido como Projeto Integrador acadêmico na Unimar, construído com Ionic, Angular e Capacitor.',
     stack: ['Ionic', 'Angular', 'TypeScript', 'Capacitor', 'SCSS'],
-    context: 'Projeto Integrador — Unimar',
-    weight: 1,
+    context: 'Projeto Integrador, Unimar',
+    weight: -3,
   },
   GearShopUnimar: {
     summary: 'E-commerce em Vue 3 com Vite, Vue Router, Axios e Firebase como dependências do projeto.',
@@ -65,5 +65,7 @@ export const curation: Record<string, RepoCuration> = {
   sodacan: {
     summary: 'Animação fluida de uma lata de refrigerante com duas bebidas diferentes, feita apenas com HTML e CSS.',
     stack: ['HTML', 'CSS', 'Animação'],
+    weight: 5,
+    emblem: 'can',
   },
 }
