@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabriel Figueiredo — Desenvolvedor de software</title>
+    <meta
+      name="description"
+      content="Portfólio de Gabriel dos Santos Figueiredo, desenvolvedor de software em Marília, SP. Front-end com Vue, Angular, Ionic e Flutter."
+    />
+    <meta name="author" content="Gabriel dos Santos Figueiredo" />
+    <meta property="og:title" content="Gabriel Figueiredo — Desenvolvedor de software" />
+    <meta property="og:description" content="Projetos, experiência e contato." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0a0a11" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=Martian+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Only the few glyphs used as decoration are requested from the Japanese font. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500&text=%E9%9D%99%E3%81%8B%E3%81%AA%E9%9B%B7&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      try {
+        var t = localStorage.getItem('portfolio-theme')
+        if (t !== 'light' && t !== 'dark') t = 'dark'
+        document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>Este portfólio precisa de JavaScript para carregar os projetos do GitHub.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

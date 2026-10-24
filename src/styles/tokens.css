@@ -1,0 +1,101 @@
+:root {
+  /* Typography */
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Syne', 'Manrope', ui-sans-serif, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-jp: 'Shippori Mincho', 'Yu Mincho', serif;
+
+  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
+  --step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.05rem);
+  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
+  --step-2: clamp(1.45rem, 1.3rem + 0.75vw, 1.9rem);
+  --step-3: clamp(1.9rem, 1.6rem + 1.6vw, 3rem);
+  --step-4: clamp(2.6rem, 2rem + 3.2vw, 4.8rem);
+  --step-5: clamp(3.2rem, 1.9rem + 7vw, 8.6rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: clamp(4.5rem, 3rem + 6vw, 8rem);
+
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --max: 1320px;
+  --header-h: 80px;
+
+  --radius-s: 2px;
+  --radius-m: 4px;
+  --radius-l: 6px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 700ms;
+
+  /*
+   * "Raiton" palette — night indigo, cool steel greys, a chidori violet as the
+   * main signal and a single crimson used sparingly for tiny details.
+   * Light theme: dawn mist. Dark theme (default): night sky.
+   */
+  --bg: #f1f0f6;
+  --bg-elev: #fbfbfd;
+  --bg-sunken: #e6e5ef;
+  --ink: #12111d;
+  --ink-2: #423f58;
+  --ink-3: #625f78;
+  --line: #d9d7e4;
+  --line-strong: #b5b2c8;
+  --accent: #5a48e0;
+  --accent-ink: #4a39c9;
+  --accent-soft: rgba(90, 72, 224, 0.1);
+  --on-accent: #ffffff;
+  --crimson: #c8243a;
+  --glow: rgba(90, 72, 224, 0.18);
+  /* Hero sky (3D canvas backdrop) and the veil that keeps text readable over it */
+  --hero-sky: #eeedf5;
+  --hero-disc: #dcd8f0;
+  --hero-veil: 238 237 245;
+  /* Code-like panels (covers, terminal, contact) stay in night tones in both themes */
+  --panel-bg: #0d0c16;
+  --panel-elev: #15142a;
+  --panel-ink: #ecebf5;
+  --panel-muted: #9c99b5;
+  --panel-line: rgba(236, 235, 245, 0.12);
+  --panel-accent: #9d8fff;
+  --shadow: 0 1px 0 rgba(18, 17, 29, 0.04), 0 14px 36px -20px rgba(40, 30, 120, 0.35);
+  --focus: #5a48e0;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0a0a11;
+  --bg-elev: #11111b;
+  --bg-sunken: #07070c;
+  --ink: #ebeaf4;
+  --ink-2: #b3b1c7;
+  --ink-3: #8b89a3;
+  --line: #22212f;
+  --line-strong: #393752;
+  --accent: #8f80ff;
+  --accent-ink: #a99eff;
+  --accent-soft: rgba(143, 128, 255, 0.13);
+  --on-accent: #0a0912;
+  --crimson: #e8394f;
+  --glow: rgba(143, 128, 255, 0.16);
+  --hero-sky: #07060d;
+  --hero-disc: #030208;
+  --hero-veil: 7 6 13;
+  --panel-bg: #0d0c17;
+  --panel-elev: #14132a;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 18px 44px -22px rgba(0, 0, 0, 0.9);
+  --focus: #b3a9ff;
+
+  color-scheme: dark;
+}
