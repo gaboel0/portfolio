@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import { ArrowUpRight, SearchX } from 'lucide-vue-next'
 import BrandIcon from '@/components/BrandIcon.vue'
 import CoverStage from '@/components/CoverStage.vue'
-import DataNotice from '@/components/DataNotice.vue'
 import FilterChips from '@/components/FilterChips.vue'
 import ProjectCard from '@/components/ProjectCard.vue'
 import SearchField from '@/components/SearchField.vue'
@@ -68,8 +67,6 @@ function reset() {
           variedade de stack — não apenas estrelas.
         </template>
       </SectionHeading>
-
-      <DataNotice />
 
       <div class="toolbar" v-reveal>
         <SearchField id="project-search" v-model="query" label="Buscar projetos" placeholder="Buscar por nome ou tecnologia" />

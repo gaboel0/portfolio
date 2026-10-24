@@ -9,7 +9,7 @@ import { formatDate, formatRelative } from '@/utils/format'
 import { languageColor } from '@/utils/languages'
 import { matchesQuery, sortProjects, type SortKey } from '@/utils/projects'
 
-const { status, projects, source, hiddenCount } = useGithub()
+const { status, projects, hiddenCount } = useGithub()
 
 const NO_LANGUAGE = '__none__'
 const query = ref('')
@@ -89,7 +89,6 @@ const loading = computed(() => status.value !== 'ready')
         <template v-else>
           {{ view.length }} de {{ projects.length }} repositórios
           <span v-if="hiddenCount"> · {{ hiddenCount }} ocultos (menos de {{ MIN_COMMITS }} commits ou sem descrição)</span>
-          <span v-if="source === 'snapshot'"> · snapshot local</span>
         </template>
       </p>
 

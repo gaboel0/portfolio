@@ -6,7 +6,7 @@ import HeroCanvas from '@/components/HeroCanvas.vue'
 import { useGithub } from '@/composables/useGithub'
 import { person } from '@/data/profile'
 
-const { status, source, projects, profile } = useGithub()
+const { status, projects, profile } = useGithub()
 const stage = ref<InstanceType<typeof HeroCanvas> | null>(null)
 
 /** Latest pushes, straight from the API (or the bundled snapshot). */
@@ -90,7 +90,6 @@ function onSkyClick(e: MouseEvent) {
     <div class="ticker" :aria-busy="loading">
       <p class="sr-only">
         Repositórios atualizados recentemente
-        <template v-if="source === 'snapshot'"> (cópia local)</template>
       </p>
       <div v-if="loading" class="track track--static mono" aria-hidden="true">Conectando ao GitHub…</div>
       <div v-else class="track mono">
